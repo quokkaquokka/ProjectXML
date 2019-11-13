@@ -1,5 +1,11 @@
+com\efrei\se\abdmeziem\moutte\part3\service\MediaService.class
 com\efrei\se\abdmeziem\moutte\part3\model\Employees.class
+com\efrei\se\abdmeziem\moutte\part3\model\User.class
+com\efrei\se\abdmeziem\moutte\part3\service\UserService.class
 com\efrei\se\abdmeziem\moutte\part3\utils\Constants.class
 com\efrei\se\abdmeziem\moutte\part3\service\UserServiceImpl.class
+com\efrei\se\abdmeziem\moutte\part3\service\MediaServiceImpl.class
+com\efrei\se\abdmeziem\moutte\part3\utils\CORSFilter.class
+com\efrei\se\abdmeziem\moutte\part3\model\Media.class
 com\efrei\se\abdmeziem\moutte\part3\service\EmployeesService.class
 com\efrei\se\abdmeziem\moutte\part3\service\EmployeesServiceImpl.class

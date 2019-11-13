@@ -1,0 +1,9 @@
+<template>
+        <h2>${heading}</h2>
+        <div class="card" repeat.for="media of medias">
+          <div class="card-header">${media.name}</div>
+        <div class="card-body">
+            <p>${media.author}</p>
+            <p repeat.for="key of media.keyWords">${key}</p>
+        </div>
+</template>

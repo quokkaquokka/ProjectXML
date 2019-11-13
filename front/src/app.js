@@ -12,6 +12,13 @@ export class App {
         title: 'welcome'
       },
       {
+        route: ['media'],
+        name: 'media',
+        moduleId: PLATFORM.moduleName('./media'),
+        nav: true,
+        title: 'media'
+      },
+      {
         route: ['test'],
         name: 'test',
         moduleId: PLATFORM.moduleName('./test'),
