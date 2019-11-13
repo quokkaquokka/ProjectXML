@@ -3,7 +3,7 @@ import axios from "axios";
 import cors from 'cors';
 
 export class Test {
-  heading = 'Welcome to the user page!';
+  heading = 'Welcome to the EMPLOYEE TEST page!';
   constructor(){
     this.users = null;
 }

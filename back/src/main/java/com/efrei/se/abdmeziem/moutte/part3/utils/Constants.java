@@ -14,5 +14,6 @@ public class Constants {
     // Connection to Database 
     public static final String DB_ADMIN = "9KMEBPT3VB";
     public static final String DB_ADMIN_KEY = "e0f546b1d1689c6b412a40c58d15011c";
+    public static final String ALLOW_SITE = "http://localhost:8282";
     
 }

@@ -5,7 +5,14 @@ export class App {
     config.title = 'Aurelia';
     config.map([
       {
-        route: ['', 'test'],
+        route: ['', 'welcome'],
+        name: 'welcome',
+        moduleId: PLATFORM.moduleName('./welcome'),
+        nav: true,
+        title: 'welcome'
+      },
+      {
+        route: ['test'],
         name: 'test',
         moduleId: PLATFORM.moduleName('./test'),
         nav: true,

@@ -1,4 +1,11 @@
 <template>
         <h2>${heading}</h2>
+        <div class="card" repeat.for="user of users">
+          <div class="card-header">User</div>
         
-</template>
+        <div class="card-body">
+            ${user.name} ${user.firstname}
+            <p>Address : ${user.address} ${user.postalcode} ${user.city}</p>
+        
+        </div>
+    </template>
