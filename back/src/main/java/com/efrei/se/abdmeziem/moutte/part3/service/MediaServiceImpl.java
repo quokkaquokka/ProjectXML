@@ -38,16 +38,19 @@ import javax.ws.rs.core.Response;
 public class MediaServiceImpl implements MediaService {
     private static Map<String, String> getQueryMap(String query)
     {
-        String[] params = query.split("&");
+        query = query.substring(1, query.length() - 1);
+        String[] params = query.split(",");
         Map<String, String> map = new HashMap<>();
         for (String param : params)
         {
-            String name = param.split("=")[0];
-            String value = URLDecoder.decode(param.split("=")[1]);
+            String name = param.split(":")[0];
+            name = name.substring(1, name.length() - 1);
+            String value = URLDecoder.decode(param.split(":")[1]);
+            value = value.substring(1, value.length() - 1);
             map.put(name, value);
         }
         return map;
-    }    
+    }   
     
     /**
     * The addMedia, connect and add the data in the database 
@@ -59,7 +62,7 @@ public class MediaServiceImpl implements MediaService {
     @Override
     @POST
     @Path("add")
-    @Consumes("application/x-www-form-urlencoded")
+    @Consumes("application/json")
     @Produces("text/plain")
     public Response addMedia(String data) {
         Map<String, String> dataMap = MediaServiceImpl.getQueryMap(data);
@@ -79,6 +82,9 @@ public class MediaServiceImpl implements MediaService {
                     break;
                 case "uid":
                     media.setUid(val);
+                    break;
+                case "icon":
+                    media.setIcon(val);
                     break;
                 case "date":
                     media.setDate(val);

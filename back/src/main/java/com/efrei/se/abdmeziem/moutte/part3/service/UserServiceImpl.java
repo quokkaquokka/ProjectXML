@@ -28,22 +28,25 @@ import javax.ws.rs.core.Response;
  */
 
 @Path("/user")
-@Consumes(MediaType.APPLICATION_JSON)
-@Produces(MediaType.APPLICATION_JSON)
+//@Consumes(MediaType.APPLICATION_JSON)
+// @Produces(MediaType.APPLICATION_JSON)
 public class UserServiceImpl implements UserService{
     
     private static Map<String, String> getQueryMap(String query)
     {
-        String[] params = query.split("&");
+        query = query.substring(1, query.length() - 1);
+        String[] params = query.split(",");
         Map<String, String> map = new HashMap<>();
         for (String param : params)
         {
-            String name = param.split("=")[0];
-            String value = URLDecoder.decode(param.split("=")[1]);
+            String name = param.split(":")[0];
+            name = name.substring(1, name.length() - 1);
+            String value = URLDecoder.decode(param.split(":")[1]);
+            value = value.substring(1, value.length() - 1);
             map.put(name, value);
         }
         return map;
-    }    
+    }
     
     /**
     * The addUser, connect and add the data in the database 
@@ -196,7 +199,7 @@ public class UserServiceImpl implements UserService{
     @Override
     @POST
     @Path("update")
-    @Consumes("application/x-www-form-urlencoded")
+    @Consumes("application/json")
     @Produces("text/plain")
     public Response updateUser(String data) {
         Map<String, String> dataMap = UserServiceImpl.getQueryMap(data);
@@ -212,7 +215,7 @@ public class UserServiceImpl implements UserService{
                 case "objectID":
                     user.setObjectID(val);
                     break;                
-                case "adress":
+                case "address":
                     user.setAddress(val);
                     break;
                 case "city":

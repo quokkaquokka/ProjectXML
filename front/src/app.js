@@ -33,6 +33,13 @@ export class App {
         title: 'user'
       },
       {
+        route: ['myProfil'],
+        name: 'myProfil',
+        moduleId: PLATFORM.moduleName('./myProfil'),
+        nav: true,
+        title: 'myProfil'
+      },
+      {
         route: ['type'],
         name: 'type',
         moduleId: PLATFORM.moduleName('./type'),
