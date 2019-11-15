@@ -1,0 +1,44 @@
+<template>
+    <h2>${heading}</h2>
+    <div class="float-right">
+        <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#modalAdd"><i class="fas fa-plus"></i></button>
+    </div>
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr repeat.for="type of types">
+            <th scope="row"><input type="text" id="${type.objectID}" name="name" class="form-control" value.bind="type.name" disabled.bind="!isEdit"></th>
+            <td>
+                <div  style="display:inline-block" ><button type="submit" id="updt${type.objectID}" class="btn btn-warning" click.delegate="changed(type.objectID)" ><i class="fas fa-edit"></i></button></div>
+                <div  style="display:inline-block"><button type="submit" id="save${type.objectID}" class="btn btn-primary" click.delegate="updateType(type.objectID, type.name)" style="display: none"><i class="fas fa-save"></i></button></div>
+                <button type="submit" style="display:inline-block" class="btn btn-danger" click.delegate="removeType(type.objectID)"><i class="fas fa-trash"></i></button>
+            </td>
+          </tr>
+        </tbody>
+    </table>
+
+    <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="modalAddTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="modalAddTitle">Add type of media</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    Name: <input type="text" name="name" class="form-control" value.bind="name"><br>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" click.delegate="addType()" class="btn btn-primary">Save</button>
+                </div>
+              </div>
+            </div>
+          </div>
+</template>

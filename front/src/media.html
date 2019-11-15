@@ -1,9 +1,14 @@
 <template>
-        <h2>${heading}</h2>
-        <div class="card" repeat.for="media of medias">
-          <div class="card-header">${media.name}</div>
-        <div class="card-body">
-            <p>${media.author}</p>
-            <p repeat.for="key of media.keyWords">${key}</p>
+    <h2>${heading}</h2>
+    <div class="card">
+        
+        <div class="card-header">
+            <h1><i class="${media.icon}"></i> ${media.name}<h1>
         </div>
+    <div class="card-body">
+        <p>Artist: ${media.author}</p>
+        <p>Publicator: ${publicator.name} ${publicator.firstname}</p>
+        <p repeat.for="key of media.keyWords"></p>
+        <span repeat.for="key of media.keyWords" class="badge badge-pill badge-success"> ${key}</span>
+    </div>
 </template>

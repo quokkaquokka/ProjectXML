@@ -175,7 +175,6 @@ public class UserServiceImpl implements UserService{
     @Consumes("application/json")
     @Produces("application/json")
     public Response getUser(@PathParam("objectID") String id) {
-        id = id.substring(1, id.length() - 1);
         SearchClient client = DefaultSearchClient.create(DB_ADMIN, DB_ADMIN_KEY);
         SearchIndex<User> index = client.initIndex("user", User.class);
         SearchResult<User> user = index.search(new Query()

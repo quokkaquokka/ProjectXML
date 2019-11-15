@@ -18,8 +18,5 @@ public interface EmployeesService {
     public Response getAllEmployees();
     public Response updateEmployees(String employeeID);
     
-   
-    
-    
     
 }

@@ -7,29 +7,41 @@ package com.efrei.se.abdmeziem.moutte.part3.utils;
 
 import com.sun.jersey.spi.container.ContainerRequest;
 import com.sun.jersey.spi.container.ContainerResponse;
-import java.io.IOException;
-import javax.ws.rs.container.ContainerRequestContext;
-import javax.ws.rs.container.ContainerResponseContext;
-import javax.ws.rs.container.ContainerResponseFilter;
+import com.sun.jersey.spi.container.ContainerResponseFilter;
+import java.util.ArrayList;
 
-/**
- *
- * @author QuokkaKoala
- */
 public class CORSFilter implements ContainerResponseFilter {
-  
-   public ContainerResponse filter(ContainerRequest creq, ContainerResponse cresp) {
+    public static final String ACCESS_CONTROL_ALLOW_ORIGIN = "Access-Control-Allow-Origin";
+    public static final String ACCESS_CONTROL_ALLOW_ORIGIN_VALUE = "*";
 
-        cresp.getHttpHeaders().putSingle("Access-Control-Allow-Origin", "*");
-        cresp.getHttpHeaders().putSingle("Access-Control-Allow-Credentials", "true");
-        cresp.getHttpHeaders().putSingle("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT, OPTIONS, HEAD");
-        cresp.getHttpHeaders().putSingle("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With");
+    private static final String ACCESS_CONTROL_ALLOW_CREDENTIALS = "Access-Control-Allow-Credentials";
+    private static final String ACCESS_CONTROL_ALLOW_CREDENTIALS_VALUE = "true";
 
-        return cresp;
-    }
+    public static final String ACCESS_CONTROL_ALLOW_HEADERS = "Access-Control-Allow-Headers";
+    public static final String ACCESS_CONTROL_ALLOW_HEADERS_VALUE = "Cache-Control, Pragma, Origin, Authorization, Content-Type, X-Requested-With, Accept";
 
+    public static final String ACCESS_CONTROL_ALLOW_METHODS = "Access-Control-Allow-Methods";
+    public static final String ACCESS_CONTROL_ALLOW_METHODS_VALUE = "GET, POST, PUT, DELETE, OPTIONS, HEAD";
+
+    public static final String[] ALL_HEADERs = {
+            ACCESS_CONTROL_ALLOW_ORIGIN,
+            ACCESS_CONTROL_ALLOW_CREDENTIALS,
+            ACCESS_CONTROL_ALLOW_HEADERS,
+            ACCESS_CONTROL_ALLOW_METHODS
+    };
+    public static final String[] ALL_HEADER_VALUEs = {
+            ACCESS_CONTROL_ALLOW_ORIGIN_VALUE,
+            ACCESS_CONTROL_ALLOW_CREDENTIALS_VALUE,
+            ACCESS_CONTROL_ALLOW_HEADERS_VALUE,
+            ACCESS_CONTROL_ALLOW_METHODS_VALUE
+    };
     @Override
-    public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext) throws IOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ContainerResponse filter(ContainerRequest request, ContainerResponse response) {
+        for (int i = 0; i < ALL_HEADERs.length; i++) {
+            ArrayList<Object> value = new ArrayList<>();
+            value.add(ALL_HEADER_VALUEs[i]);
+            response.getHttpHeaders().put(ALL_HEADERs[i], value); //using put method
+        }
+        return response;
     }
 }

@@ -179,7 +179,6 @@ public class MediaServiceImpl implements MediaService {
     @Consumes("application/json")
     @Produces("application/json")
     public Response getMedia(@PathParam("objectID") String id) {
-        id = id.substring(1, id.length() - 1);
         SearchClient client = DefaultSearchClient.create(DB_ADMIN, DB_ADMIN_KEY);
         SearchIndex<Media> index = client.initIndex("media", Media.class);
         SearchResult<Media> media = index.search(new Query()

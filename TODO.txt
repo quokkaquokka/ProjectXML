@@ -9,16 +9,15 @@ CRUD Media (back et front)
 [] Ajouter un media (front)
 [] Ajouter un media (back) gere le tableau de keyWords
 [x] List des medias sans le user 
-[] List des medias -> Recupere le user qui a poster le media (uid, back) pour l'affcher dans le front
 [] ?? Modifier un media
 [] Suprimer un media (front), back à tester
-[] Get media avec un ID pour voir les détails
+[x] Get media avec un ID pour voir les détails
 
 CRUD TYPE des medias (back et front)
-[] Listes des types
-[] Ajouter un type
-[] Modifier un type
-[] supprimer un type
+[x] Listes des types
+[x] Ajouter un type
+[x] Modifier un type
+[x] supprimer un type
 
 
 CRUD Commentaires (back et front)

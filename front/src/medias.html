@@ -1,0 +1,22 @@
+<template>
+        <h2>${heading}</h2>
+        <div class="card" repeat.for="media of medias">
+            
+          <div class="card-header">
+              <h1>
+                <button type="submit" click.delegate="goDetails(media.objectID)" style="
+                  background-color: Transparent;
+                  background-repeat:no-repeat;
+                  border: none;
+                  cursor:pointer;
+                  overflow: hidden;
+                  outline:none;
+              "> <i class="${media.icon}"></i> ${media.name}</button>
+              </h1>
+          </div>
+        <div class="card-body">
+            <p>${media.author}</p>
+            <p repeat.for="key of media.keyWords"></p>
+            <span repeat.for="key of media.keyWords" class="badge badge-pill badge-success"> ${key}</span>
+        </div>
+</template>

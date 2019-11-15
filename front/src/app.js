@@ -12,11 +12,11 @@ export class App {
         title: 'welcome'
       },
       {
-        route: ['media'],
-        name: 'media',
-        moduleId: PLATFORM.moduleName('./media'),
+        route: ['medias'],
+        name: 'medias',
+        moduleId: PLATFORM.moduleName('./medias'),
         nav: true,
-        title: 'media'
+        title: 'medias'
       },
       {
         route: ['test'],
@@ -31,6 +31,20 @@ export class App {
         moduleId: PLATFORM.moduleName('./user'),
         nav: true,
         title: 'user'
+      },
+      {
+        route: ['type'],
+        name: 'type',
+        moduleId: PLATFORM.moduleName('./type'),
+        nav: true,
+        title: 'type'
+      },
+      {
+        route: ['media'],
+        name: 'media',
+        moduleId: PLATFORM.moduleName('./media'),
+        nav: false,
+        title: 'media'
       }
     ]);
 

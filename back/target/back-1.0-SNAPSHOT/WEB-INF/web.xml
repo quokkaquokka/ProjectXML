@@ -23,20 +23,12 @@
             <param-name>com.sun.jersey.config.property.packages</param-name>
             <param-value>com.efrei.se.abdmeziem.moutte.part3.service</param-value>
         </init-param>
+        <init-param>
+            <param-name>com.sun.jersey.spi.container.ContainerResponseFilters</param-name>
+            <param-value>com.efrei.se.abdmeziem.moutte.part3.utils.CORSFilter</param-value>
+        </init-param>
         <load-on-startup>1</load-on-startup>  
     </servlet>
-    <servlet>
-        <servlet-name>CORS Filter</servlet-name>
-        <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
-         <init-param>
-            <param-name>com.sun.jersey.spi.container.ContainerResponseFilters</param-name>
-            <param-value>your.package.CORSFilter</param-value>
-         </init-param>
-        </servlet>
-        <servlet-mapping>
-            <servlet-name>CORS Filter</servlet-name>
-            <url-pattern>/webservices/*</url-pattern>
-        </servlet-mapping>
     <servlet-mapping>
         <servlet-name>jerseyServlet</servlet-name>
         <url-pattern>/api/v1/*</url-pattern>

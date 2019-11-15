@@ -15,6 +15,7 @@ public class Media {
     private String objectID;
     private String name;
     private String author;
+    private String icon;
     private String date;
     private String uid;
     private ArrayList<String> keyWords;
@@ -27,6 +28,15 @@ public class Media {
 
     public Media setName(String name) {
         this.name = name;
+        return this;
+    }
+    
+    public String getIcon() {
+        return icon;
+    }
+
+    public Media setIcon(String icone) {
+        this.icon = icone;
         return this;
     }
 
