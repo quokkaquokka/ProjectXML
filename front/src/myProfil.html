@@ -37,6 +37,9 @@
         <p>${media.author}</p>
         <p repeat.for="key of media.keyWords"></p>
         <span repeat.for="key of media.keyWords" class="badge badge-pill badge-success"> ${key}</span>
+        <button type="submit" click.delegate="deleteMedia(media.objectID)" class="btn btn-danger" style="float:right">
+          <i class="fas fa-trash"></i>
+        </button>
     </div>
 
 
