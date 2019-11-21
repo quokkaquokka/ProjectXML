@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService{
     @Override
     @POST
     @Path("add")
-    @Consumes("application/x-www-form-urlencoded")
+    @Consumes("application/json")
     @Produces("text/plain")
     public Response addUser(String data) {
         Map<String, String> dataMap = UserServiceImpl.getQueryMap(data);
