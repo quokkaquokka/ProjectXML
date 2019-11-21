@@ -153,7 +153,7 @@ public class MediaServiceImpl implements MediaService {
     */
     @Override
     @GET
-    @Path("delete/objectID")
+    @Path("delete/{objectID}")
     @Consumes("application/json")
     @Produces("text/plain")
     public Response deleteMedia(@PathParam("objectID") String id) {
