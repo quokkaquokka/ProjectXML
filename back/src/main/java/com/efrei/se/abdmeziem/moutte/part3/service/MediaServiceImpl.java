@@ -153,11 +153,10 @@ public class MediaServiceImpl implements MediaService {
     */
     @Override
     @GET
-    @Path("delete/{objectID}")
+    @Path("delete/objectID")
     @Consumes("application/json")
     @Produces("text/plain")
     public Response deleteMedia(@PathParam("objectID") String id) {
-        id = id.substring(1, id.length() - 1);
         SearchClient client = DefaultSearchClient.create(DB_ADMIN, DB_ADMIN_KEY);
         SearchIndex<Media> index = client.initIndex("media", Media.class);
         

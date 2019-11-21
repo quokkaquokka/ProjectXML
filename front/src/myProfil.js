@@ -13,6 +13,7 @@ export class MyProfil {
         this.router = router;
         this.user = null;
         this.isEdit = true;
+        this.delete=null;
 
         this.name = null;
         this.author = null;
@@ -81,6 +82,9 @@ export class MyProfil {
 
     }
 
-
-
+    async deleteMedia(objectID){
+      const response = await axios.get('http://'+ config.host +'/media/delete/'+ objectID);
+      this.delete = response.data;
+      console.log(this.delete)
+    }
 }
