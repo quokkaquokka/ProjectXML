@@ -12,11 +12,14 @@ export class Media {
     constructor() {
         this.media = null;
         this.publicator = null;
+		this.comments = null;//H
+		//this.isEdit = true;//H
     }
 
     activate(params) {
         console.log(params.objectID)
-        return this.getMedia(params.objectID);
+		this.getComments();//H
+        this.getMedia(params.objectID);
     }
 
     async getMedia(objectID) {
@@ -25,5 +28,27 @@ export class Media {
         const responseUser = await axios.get('http://'+ config.host +'/user/get/'+ this.media.uid);
         this.publicator = responseUser.data.hits[0];
         console.log(responseUser.data);
+    }
+	
+	async getComments() {//H
+		const response = await axios.get('http://'+ config.host +'/comment/getAll/');
+        this.comments = response.data.hits;
+        console.log(this.comments);
+	}
+	
+	clicked()//H
+    {
+        document.getElementById("commt").style= "display: none";
+		this.isEdit = !this.isEdit;
+	}
+	
+	async addComment() {//H
+        var data = {
+            commtext: this.commtext,
+            grade : this.grade,
+            uid: this.user.objectID
+        };
+        const response = await axios.post('http://'+ config.host + '/comment/add', data);
+
     }
 }

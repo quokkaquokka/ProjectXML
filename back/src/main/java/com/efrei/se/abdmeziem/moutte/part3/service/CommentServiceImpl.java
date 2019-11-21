@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.efrei.se.abdmeziem.moutte.part3.service;
 
 import com.algolia.search.DefaultSearchClient;
@@ -5,7 +10,8 @@ import com.algolia.search.SearchClient;
 import com.algolia.search.SearchIndex;
 import com.algolia.search.models.indexing.Query;
 import com.algolia.search.models.indexing.SearchResult;
-import com.efrei.se.abdmeziem.moutte.part3.model.User;
+import com.efrei.se.abdmeziem.moutte.part3.model.Comment;
+import com.efrei.se.abdmeziem.moutte.part3.model.Media;
 import static com.efrei.se.abdmeziem.moutte.part3.utils.Constants.ALLOW_SITE;
 import static com.efrei.se.abdmeziem.moutte.part3.utils.Constants.DB_ADMIN;
 import static com.efrei.se.abdmeziem.moutte.part3.utils.Constants.DB_ADMIN_KEY;
@@ -24,22 +30,22 @@ import javax.ws.rs.core.Response;
 
 /**
  *
- * @author QuokkaKoala
+ * @author hadri
  */
 
-@Path("/user")
-//@Consumes(MediaType.APPLICATION_JSON)
-// @Produces(MediaType.APPLICATION_JSON)
-public class UserServiceImpl implements UserService{
-    
+@Path("/comment")
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
+public class CommentServiceImpl implements CommentService {
+
     private static Map<String, String> getQueryMap(String query)
     {
         query = query.substring(1, query.length() - 1);
-        String[] params = query.split(",");//maybe replace with "&"
+        String[] params = query.split(",");
         Map<String, String> map = new HashMap<>();
         for (String param : params)
         {
-            String name = param.split(":")[0];//maybe replace with "="
+            String name = param.split(":")[0];
             name = name.substring(1, name.length() - 1);
             String value = URLDecoder.decode(param.split(":")[1]);
             value = value.substring(1, value.length() - 1);
@@ -48,55 +54,42 @@ public class UserServiceImpl implements UserService{
         return map;
     }
     
-    /**
-    * The addUser, connect and add the data in the database 
-    * The function retrieves the JSON, passes it in a map to process the data and adds it to the User class
-    * use UUID to generate an ID for the user.
-    * @return Response
-    */
-    
     @Override
     @POST
     @Path("add")
-    @Consumes("application/x-www-form-urlencoded")
+    @Consumes("application/json")
     @Produces("text/plain")
-    public Response addUser(String data) {
-        Map<String, String> dataMap = UserServiceImpl.getQueryMap(data);
-        User user = new User();
+    public Response addComment(String data) {
+        Map<String, String> dataMap = CommentServiceImpl.getQueryMap(data);
+        Comment comment = new Comment();
         for (Map.Entry<String, String> entry : dataMap.entrySet()) {
             String key = entry.getKey();
             String val =  entry.getValue();
             switch(key) {
-                case "name":
-                    user.setName(val);
-                    break;                
-                case "adress":
-                    user.setAddress(val);
+                case "publisherID":
+                    comment.setPublisherID(val);
+                    break;               
+                case "mediaID":
+                    comment.setMediaID(val);
                     break;
-                case "city":
-                    user.setCity(val);
+                case "text":
+                    comment.setText(val);
                     break;
-                case "email":
-                    user.setEmail(val);
-                    break;
-                case "firstname":
-                    user.setFirstname(val);
-                    break;
-                case "postalcode":
-                    user.setPostalcode(val);
+                case "grade":
+                    comment.setGrade(val);
                     break;
                 default:
-                    System.out.println(key + "Not found in switch case !!!!");
+                    System.out.println(key + " not found in switch case!!!!");
             }
 	}
        
         SearchClient client = DefaultSearchClient.create(DB_ADMIN, DB_ADMIN_KEY);
-        SearchIndex<User> index = client.initIndex("user", User.class);
+        SearchIndex<Comment> index = client.initIndex("comment", Comment.class);
         try {        
-            UUID uuid = UUID.randomUUID();
-            String randomUUIDString = uuid.toString();
-            user.setObjectID(randomUUIDString);
-            index.saveObject(user).waitTask();
+              UUID uuid = UUID.randomUUID();
+              String randomUUIDString = uuid.toString();
+              comment.setObjectID(randomUUIDString);
+              index.saveObject(comment).waitTask();
             return Response.ok("Ok")
               .header("Access-Control-Allow-Origin", ALLOW_SITE)
               .header("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, OPTIONS")
@@ -111,41 +104,15 @@ public class UserServiceImpl implements UserService{
         }
     }
 
-    /**
-    * The getUsers, connect and get the data of all user in the database 
-    * The function makes a request without filter because we want all users
-    * @return Response
-    */
-    @Override
-    @GET
-    @Path("getAll")
-    @Produces("application/json")
-    public Response getUsers(){
-        SearchClient client = DefaultSearchClient.create(DB_ADMIN, DB_ADMIN_KEY);
-        SearchIndex<User> index = client.initIndex("user", User.class);
-        SearchResult<User> allUser = index.search(new Query());
-        return Response.ok(allUser)
-          .header("Access-Control-Allow-Origin", ALLOW_SITE)
-          .header("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, OPTIONS")
-          .header("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With")
-          .build();
-    }
-    
-    
-    /**
-    * The deleteUser, connect and delete the user in the database 
-    * The function delete the user with the id
-    * @return Response
-    */
     @Override
     @GET
     @Path("delete/{objectID}")
     @Consumes("application/json")
     @Produces("text/plain")
-    public Response deleteUser(@PathParam("objectID") String id) {
+    public Response deleteComment(@PathParam("objectID") String id) {
         id = id.substring(1, id.length() - 1);
         SearchClient client = DefaultSearchClient.create(DB_ADMIN, DB_ADMIN_KEY);
-        SearchIndex<User> index = client.initIndex("user", User.class);
+        SearchIndex<Comment> index = client.initIndex("comment", Comment.class);
         
         try{
            index.deleteObject(id);
@@ -167,68 +134,65 @@ public class UserServiceImpl implements UserService{
         }
     }
 
-    /**
-    * The getUser, connect and return the user in the database 
-    * The function get the user with the id, there use a filter.
-    * @return Response
-    */
     @Override
     @GET
     @Path("get/{objectID}")
     @Consumes("application/json")
     @Produces("application/json")
-    public Response getUser(@PathParam("objectID") String id) {
+    public Response getComment(String id) {
         SearchClient client = DefaultSearchClient.create(DB_ADMIN, DB_ADMIN_KEY);
-        SearchIndex<User> index = client.initIndex("user", User.class);
-        SearchResult<User> user = index.search(new Query()
+        SearchIndex<Comment> index = client.initIndex("comment", Comment.class);
+        SearchResult<Comment> comment = index.search(new Query()
          .setFilters("objectID:'" + id + "'"));
-        return Response.ok(user)
+        return Response.ok(comment)
             .header("Access-Control-Allow-Origin", ALLOW_SITE)
             .header("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, OPTIONS")
             .header("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With")
             .build();
     }
-    
-    
-    
-    /**
-    * The updateUser, connect and change the data of user in the database 
-    * The function retrieves the JSON, passes it in a map to process the data and update the User in the database
-    * @return Response
-    */
+
+    @Override
+    @GET
+    @Path("getAll")
+    @Produces("application/json")
+    public Response getComments() {
+        SearchClient client = DefaultSearchClient.create(DB_ADMIN, DB_ADMIN_KEY);
+        SearchIndex<Comment> index = client.initIndex("comment", Comment.class);
+        SearchResult<Comment> allComment = index.search(new Query());
+        return Response.ok(allComment)
+          .header("Access-Control-Allow-Origin", ALLOW_SITE)
+          .header("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, OPTIONS")
+          .header("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With")
+          .build();
+    }
+
     @Override
     @POST
     @Path("update")
-    @Consumes("application/json")
+    @Consumes("application/x-www-form-urlencoded")
     @Produces("text/plain")
-    public Response updateUser(String data) {
-        Map<String, String> dataMap = UserServiceImpl.getQueryMap(data);
-        User user = new User();
+    public Response updateComment(String data) {
+        Map<String, String> dataMap = CommentServiceImpl.getQueryMap(data);
+        Comment comment = new Comment();
   
         for (Map.Entry<String, String> entry : dataMap.entrySet()) {
             String key = entry.getKey();
             String val =  entry.getValue();
             switch(key) {
-                case "name":
-                    user.setName(val);
+                case "publisherID":
+                    comment.setPublisherID(val);
+                    break;               
+                case "mediaID":
+                    comment.setMediaID(val);
+                    break;
+                case "text":
+                    comment.setText(val);
+                    break;
+                case "grade":
+                    comment.setGrade(val);
                     break;
                 case "objectID":
-                    user.setObjectID(val);
-                    break;                
-                case "address":
-                    user.setAddress(val);
-                    break;
-                case "city":
-                    user.setCity(val);
-                    break;
-                case "email":
-                    user.setEmail(val);
-                    break;
-                case "firstname":
-                    user.setFirstname(val);
-                    break;
-                case "postalcode":
-                    user.setPostalcode(val);
+                    comment.setObjectID(val);
                     break;
                 default:
                     System.out.println(key + " not found in switch case!!!!");
@@ -236,9 +200,9 @@ public class UserServiceImpl implements UserService{
 	}
 
         SearchClient client = DefaultSearchClient.create(DB_ADMIN, DB_ADMIN_KEY);
-        SearchIndex<User> index = client.initIndex("user", User.class);
+        SearchIndex<Comment> index = client.initIndex("comment", Comment.class);
         try {        
-            index.saveObject(user).waitTask();
+            index.saveObject(comment).waitTask();
             return Response.ok("Ok")
               .header("Access-Control-Allow-Origin", ALLOW_SITE)
               .header("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, OPTIONS")
@@ -253,7 +217,5 @@ public class UserServiceImpl implements UserService{
               .build(); 
         }
     }
-    
-    
     
 }

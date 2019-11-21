@@ -59,6 +59,13 @@ public class MediaServiceImpl implements MediaService {
     * @return Response
     */
     
+    private void splitKW(Media media, String kw) {
+        String[] keywords = kw.split(",");
+        for (String keyw : keywords) {
+            media.addKeyWord(keyw);
+        }
+    }
+    
     @Override
     @POST
     @Path("add")
@@ -74,9 +81,9 @@ public class MediaServiceImpl implements MediaService {
                 case "name":
                     media.setName(val);
                     break;
-                case "objectID":
+                /*case "objectID":
                     media.setObjectID(val);
-                    break;                
+                    break;*/                
                 case "author":
                     media.setAuthor(val);
                     break;
@@ -89,9 +96,9 @@ public class MediaServiceImpl implements MediaService {
                 case "date":
                     media.setDate(val);
                     break;
-                // case "keyWords":
-                   //  media.setKeyWords(val);
-                    // break;
+                case "keyWords":
+                    splitKW(media, val);
+                    break;
                 default:
                     System.out.println(key + " not found in switch case!!!!");
             }
@@ -231,9 +238,9 @@ public class MediaServiceImpl implements MediaService {
                 case "date":
                     media.setDate(val);
                     break;
-                // case "keyWords":
-                   //  media.setKeyWords(val);
-                    // break;
+                case "keyWords":
+                    splitKW(media, val);
+                    break;
                 default:
                     System.out.println(key + " not found in switch case!!!!");
             }

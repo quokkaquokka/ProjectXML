@@ -43,9 +43,11 @@ public class EmployeesServiceImpl implements EmployeesService {
     public Response addEmployees(String data) {
         Map<String, String> dataMap = EmployeesServiceImpl.getQueryMap(data);
         Employees employees = new Employees();
+        String key;
+        String val;
         for (Map.Entry<String, String> entry : dataMap.entrySet()) {
-            String key = entry.getKey();
-            String val =  entry.getValue();
+            key = entry.getKey();
+            val =  entry.getValue();
             switch(key) {
                 case "name":
                     employees.setName(val);
@@ -177,7 +179,7 @@ public class EmployeesServiceImpl implements EmployeesService {
             map.put(name, value);
         }
         return map;
-    }    
+    }
     
     
     /**
