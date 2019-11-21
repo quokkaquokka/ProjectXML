@@ -10,8 +10,8 @@ CRUD Media (back et front)
 [] Ajouter un media (back) gere le tableau de keyWords
 [x] List des medias sans le user 
 [] ?? Modifier un media
-[] Suprimer un media (front), back à tester
-[x] Get media avec un ID pour voir les détails
+[] Suprimer un media (front), back Ã  tester
+[x] Get media avec un ID pour voir les dÃ©tails
 
 CRUD TYPE des medias (back et front)
 [x] Listes des types
@@ -29,7 +29,7 @@ CRUD Commentaires (back et front)
 
 CRUD User (back et front)
 [x] Listes des users
-[] Ajouter un user
+[x] Ajouter un user
 [x] Modifier un user
 [] supprimer un user
 
