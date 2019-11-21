@@ -10,6 +10,7 @@ import config from './config';
 export class Media {
   heading = 'media!';
     constructor() {
+		this.nComment = '';
         this.media = null;
         this.publicator = null;
 		this.comments = null;//H

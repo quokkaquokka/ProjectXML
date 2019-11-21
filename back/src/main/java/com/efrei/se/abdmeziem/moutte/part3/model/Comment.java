@@ -27,7 +27,7 @@ public class Comment {
     }
     
     public String getPublisherID() {
-        return objectID;
+        return publisherID;
     }
     
     public void setPublisherID(String publisherID) {
@@ -35,7 +35,7 @@ public class Comment {
     }
     
     public String getMediaID() {
-        return objectID;
+        return mediaID;
     }
     
     public void setMediaID(String mediaID) {
@@ -43,7 +43,7 @@ public class Comment {
     }
     
     public String getText() {
-        return objectID;
+        return text;
     }
     
     public void setText(String text) {
@@ -51,7 +51,7 @@ public class Comment {
     }
     
     public String getGrade() {
-        return objectID;
+        return grade;
     }
     
     public void setGrade(String grade) {

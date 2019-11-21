@@ -5,18 +5,21 @@
         <div class="card-header">
             <h1><i class="${media.icon}"></i> ${media.name}<h1>
         </div>
-    <div class="card-body">
-        <p>Artist: ${media.author}</p>
-        <p>Publicator: ${publicator.name} ${publicator.firstname}</p>
-        <p>Release date : ${media.date}</p>
-        <p repeat.for="key of media.keyWords"></p>
-        <span repeat.for="key of media.keyWords" class="badge badge-pill badge-success"> ${key}</span>
-    </div>
-	<!--div class="card-body"><!-- H from here -->
-		<!--input type="text" name="commtext" class="form-control" value.bind="add a comment..." disabled.bind="isEdit">
-		<div style="float: right; margin-top: 10px"><button type="submit" id="commt" class="btn btn-warning" click.delegate="clicked()" ></button></div>
-	</div-->
-	<div class="card" repeat.for="comment of comments">
+		<div class="card-body">
+			<p>Artist: ${media.author}</p>
+			<p>Publicator: ${publicator.name} ${publicator.firstname}</p>
+			<p>Release date : ${media.date}</p>
+			<p repeat.for="key of media.keyWords"></p>
+			<span repeat.for="key of media.keyWords" class="badge badge-pill badge-success"> ${key}</span>
+		</div>
+	</div>
+	<div class="card">
+		<div class="card-body">
+			<input type="text" name="commtext" class="form-control" placeholder='Add a comment..' value.bind="nComment" disabled.bind="isEdit">
+			<!--div style="float: right; margin-top: 10px"><button type="submit" id="commt" class="btn btn-warning" click.delegate="clicked()" ></button></div-->
+		</div>
+	</div>
+	<div class="card" repeat.for="comment of comments"><!-- H from here -->
 		<div class="card-body">
 			<p>${comment.text}</p>
 		</div>
