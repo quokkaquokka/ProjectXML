@@ -1,11 +1,42 @@
 <template>
-        <h2>${heading}</h2>
-        <div class="card" repeat.for="user of users">
-          <div class="card-header">User</div>
+      <h2>${heading}</h2>
+      <div class="card" repeat.for="user of users">
+        <div class="card-header">User</div>
         
         <div class="card-body">
             ${user.name} ${user.firstname}
             <p>Address : ${user.address} ${user.postalcode} ${user.city}</p>
         
         </div>
-    </template>
+      </div>
+
+      <button type="submit" click.delegate="addUser()" class="btn btn-success" data-toggle="modal" data-target="#modalAdd" style="width: 100px; margin-top: 5px;">
+        <i class="fas fa-plus"></i> New user
+      </button>
+
+      <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="modalAddTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalAddTitle">Add type of media</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                Name: <input type="text" name="name" class="form-control" value.bind="name"><br>
+                First name: <input type="text" name="firstname" class="form-control" value.bind="firstname"><br>
+                Address: <input type="text" name="adress" class="form-control" value.bind="adress"><br>
+                Postal code: <input type="text" name="postalcode" class="form-control" value.bind="postalcode"><br>
+                City: <input type="text" name="city" class="form-control" value.bind="city"><br>
+                E-mail: <input type="text" name="email" class="form-control" value.bind="email"><br>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" click.delegate="addUser()" class="btn btn-primary">Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+</template>
