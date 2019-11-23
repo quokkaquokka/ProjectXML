@@ -21,10 +21,10 @@ CRUD TYPE des medias (back et front)
 
 
 CRUD Commentaires (back et front)
-[] Listes des types
-[] Ajouter un type
-[] Modifier un type
-[] supprimer un type
+[] Listes des commentaires (afficher par média)
+[] Ajouter un commentaire
+[] Modifier un commentaire (priorité basse)
+[] supprimer un commentaire
 
 
 CRUD User (back et front)
@@ -33,7 +33,8 @@ CRUD User (back et front)
 [x] Modifier un user
 [] supprimer un user
 
-
+Fixes:
+redirections après clicks sur les différents buttons
 
 
 
