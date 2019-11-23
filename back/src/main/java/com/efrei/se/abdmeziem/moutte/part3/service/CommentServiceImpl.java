@@ -10,6 +10,7 @@ import com.algolia.search.SearchClient;
 import com.algolia.search.SearchIndex;
 import com.algolia.search.models.indexing.Query;
 import com.algolia.search.models.indexing.SearchResult;
+import com.efrei.se.abdmeziem.moutte.part3.model.Comment;
 import com.efrei.se.abdmeziem.moutte.part3.model.Media;
 import static com.efrei.se.abdmeziem.moutte.part3.utils.Constants.ALLOW_SITE;
 import static com.efrei.se.abdmeziem.moutte.part3.utils.Constants.DB_ADMIN;
@@ -29,44 +30,28 @@ import javax.ws.rs.core.Response;
 
 /**
  *
- * @author QuokkaKoala
+ * @author hadri
  */
 
-@Path("/media")
+@Path("/comment")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class MediaServiceImpl implements MediaService {
+public class CommentServiceImpl implements CommentService {
+
     private static Map<String, String> getQueryMap(String query)
     {
         query = query.substring(1, query.length() - 1);
-        String[] params = query.split("\",\"");
+        String[] params = query.split(",");
         Map<String, String> map = new HashMap<>();
-        params[0] = params[0].substring(1, params[0].length());
         for (String param : params)
         {
-            String[] keyValue = param.split("\":\"", 2);
-            String name = keyValue[0];
-            System.out.print(name);
-            
-            String value = keyValue[1];
-            System.out.print(value);
+            String name = param.split(":")[0];
+            name = name.substring(1, name.length() - 1);
+            String value = URLDecoder.decode(param.split(":")[1]);
+            value = value.substring(1, value.length() - 1);
             map.put(name, value);
         }
         return map;
-    }   
-    
-    /**
-    * The addMedia, connect and add the data in the database 
-    * The function retrieves the JSON, passes it in a map to process the data and adds it to the Media class
-    * use UUID to generate an ID for the media.
-    * @return Response
-    */
-    
-    private void splitKW(Media media, String kw) {
-        String[] keywords = kw.split(",");
-        for (String keyw : keywords) {
-            media.addKeyWord(keyw);
-        }
     }
     
     @Override
@@ -74,38 +59,24 @@ public class MediaServiceImpl implements MediaService {
     @Path("add")
     @Consumes("application/json")
     @Produces("text/plain")
-    public Response addMedia(String data) {
-        Map<String, String> dataMap = MediaServiceImpl.getQueryMap(data);
-        
-        Media media = new Media();
+    public Response addComment(String data) {
+        Map<String, String> dataMap = CommentServiceImpl.getQueryMap(data);
+        Comment comment = new Comment();
         for (Map.Entry<String, String> entry : dataMap.entrySet()) {
             String key = entry.getKey();
             String val =  entry.getValue();
             switch(key) {
-                case "name":
-                    media.setName(val);
+                case "publisherID":
+                    comment.setPublisherID(val);
+                    break;               
+                case "mediaID":
+                    comment.setMediaID(val);
                     break;
-                /*case "objectID":
-                    media.setObjectID(val);
-                    break;*/                
-                case "author":
-                    media.setAuthor(val);
+                case "text":
+                    comment.setText(val);
                     break;
-                case "uid":
-                    media.setUid(val);
-                    break;
-                case "icon":
-                    media.setIcon(val);
-                    break;
-                case "date":
-                    media.setDate(val);
-                    break;
-                case "keyWords":
-<<<<<<< HEAD
-                   //  media.setKeyWords(val);
-=======
-                    splitKW(media, val);
->>>>>>> 3e508ab048a6194c5130c516cf26922208cf8bf5
+                case "grade":
+                    comment.setGrade(val);
                     break;
                 default:
                     System.out.println(key + " not found in switch case!!!!");
@@ -113,12 +84,12 @@ public class MediaServiceImpl implements MediaService {
 	}
        
         SearchClient client = DefaultSearchClient.create(DB_ADMIN, DB_ADMIN_KEY);
-        SearchIndex<Media> index = client.initIndex("media", Media.class);
+        SearchIndex<Comment> index = client.initIndex("comment", Comment.class);
         try {        
               UUID uuid = UUID.randomUUID();
               String randomUUIDString = uuid.toString();
-              media.setObjectID(randomUUIDString);
-              index.saveObject(media).waitTask();
+              comment.setObjectID(randomUUIDString);
+              index.saveObject(comment).waitTask();
             return Response.ok("Ok")
               .header("Access-Control-Allow-Origin", ALLOW_SITE)
               .header("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, OPTIONS")
@@ -133,40 +104,15 @@ public class MediaServiceImpl implements MediaService {
         }
     }
 
-    /**
-    * The getMedias, connect and get the data of all media in the database 
-    * The function makes a request without filter because we want all medias
-    * @return Response
-    */
-    @Override
-    @GET
-    @Path("getAll")
-    @Produces("application/json")
-    public Response getMedias(){
-        SearchClient client = DefaultSearchClient.create(DB_ADMIN, DB_ADMIN_KEY);
-        SearchIndex<Media> index = client.initIndex("media", Media.class);
-        SearchResult<Media> allMedia = index.search(new Query());
-        return Response.ok(allMedia)
-          .header("Access-Control-Allow-Origin", ALLOW_SITE)
-          .header("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, OPTIONS")
-          .header("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With")
-          .build();
-    }
-    
-    
-    /**
-    * The deleteMedia, connect and delete the media in the database 
-    * The function delete the media with the id
-    * @return Response
-    */
     @Override
     @GET
     @Path("delete/{objectID}")
     @Consumes("application/json")
     @Produces("text/plain")
-    public Response deleteMedia(@PathParam("objectID") String id) {
+    public Response deleteComment(@PathParam("objectID") String id) {
+        id = id.substring(1, id.length() - 1);
         SearchClient client = DefaultSearchClient.create(DB_ADMIN, DB_ADMIN_KEY);
-        SearchIndex<Media> index = client.initIndex("media", Media.class);
+        SearchIndex<Comment> index = client.initIndex("comment", Comment.class);
         
         try{
            index.deleteObject(id);
@@ -188,65 +134,65 @@ public class MediaServiceImpl implements MediaService {
         }
     }
 
-    /**
-    * The getMedia, connect and return the media in the database 
-    * The function get the media with the id, there use a filter.
-    * @return Response
-    */
     @Override
     @GET
     @Path("get/{objectID}")
     @Consumes("application/json")
     @Produces("application/json")
-    public Response getMedia(@PathParam("objectID") String id) {
+    public Response getComment(String id) {
         SearchClient client = DefaultSearchClient.create(DB_ADMIN, DB_ADMIN_KEY);
-        SearchIndex<Media> index = client.initIndex("media", Media.class);
-        SearchResult<Media> media = index.search(new Query()
+        SearchIndex<Comment> index = client.initIndex("comment", Comment.class);
+        SearchResult<Comment> comment = index.search(new Query()
          .setFilters("objectID:'" + id + "'"));
-        return Response.ok(media)
+        return Response.ok(comment)
             .header("Access-Control-Allow-Origin", ALLOW_SITE)
             .header("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, OPTIONS")
             .header("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With")
             .build();
     }
-    
-    
-    
-    /**
-    * The updateMedia, connect and change the data of media in the database 
-    * The function retrieves the JSON, passes it in a map to process the data and update the Media in the database
-    * @return Response
-    */
+
+    @Override
+    @GET
+    @Path("getAll")
+    @Produces("application/json")
+    public Response getComments() {
+        SearchClient client = DefaultSearchClient.create(DB_ADMIN, DB_ADMIN_KEY);
+        SearchIndex<Comment> index = client.initIndex("comment", Comment.class);
+        SearchResult<Comment> allComment = index.search(new Query());
+        return Response.ok(allComment)
+          .header("Access-Control-Allow-Origin", ALLOW_SITE)
+          .header("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, OPTIONS")
+          .header("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With")
+          .build();
+    }
+
     @Override
     @POST
     @Path("update")
-    @Consumes("application/json")
+    @Consumes("application/x-www-form-urlencoded")
     @Produces("text/plain")
-    public Response updateMedia(String data) {
-        Map<String, String> dataMap = MediaServiceImpl.getQueryMap(data);
-        Media media = new Media();
+    public Response updateComment(String data) {
+        Map<String, String> dataMap = CommentServiceImpl.getQueryMap(data);
+        Comment comment = new Comment();
   
         for (Map.Entry<String, String> entry : dataMap.entrySet()) {
             String key = entry.getKey();
             String val =  entry.getValue();
             switch(key) {
-                case "name":
-                    media.setName(val);
+                case "publisherID":
+                    comment.setPublisherID(val);
+                    break;               
+                case "mediaID":
+                    comment.setMediaID(val);
+                    break;
+                case "text":
+                    comment.setText(val);
+                    break;
+                case "grade":
+                    comment.setGrade(val);
                     break;
                 case "objectID":
-                    media.setObjectID(val);
-                    break;                
-                case "author":
-                    media.setAuthor(val);
-                    break;
-                case "uid":
-                    media.setUid(val);
-                    break;
-                case "date":
-                    media.setDate(val);
-                    break;
-                case "keyWords":
-                    splitKW(media, val);
+                    comment.setObjectID(val);
                     break;
                 default:
                     System.out.println(key + " not found in switch case!!!!");
@@ -254,9 +200,9 @@ public class MediaServiceImpl implements MediaService {
 	}
 
         SearchClient client = DefaultSearchClient.create(DB_ADMIN, DB_ADMIN_KEY);
-        SearchIndex<Media> index = client.initIndex("media", Media.class);
+        SearchIndex<Comment> index = client.initIndex("comment", Comment.class);
         try {        
-            index.saveObject(media).waitTask();
+            index.saveObject(comment).waitTask();
             return Response.ok("Ok")
               .header("Access-Control-Allow-Origin", ALLOW_SITE)
               .header("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, OPTIONS")
@@ -271,7 +217,5 @@ public class MediaServiceImpl implements MediaService {
               .build(); 
         }
     }
-    
-    
     
 }

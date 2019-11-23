@@ -35,11 +35,11 @@ public class UserServiceImpl implements UserService{
     private static Map<String, String> getQueryMap(String query)
     {
         query = query.substring(1, query.length() - 1);
-        String[] params = query.split(",");
+        String[] params = query.split(",");//maybe replace with "&"
         Map<String, String> map = new HashMap<>();
         for (String param : params)
         {
-            String name = param.split(":")[0];
+            String name = param.split(":")[0];//maybe replace with "="
             name = name.substring(1, name.length() - 1);
             String value = URLDecoder.decode(param.split(":")[1]);
             value = value.substring(1, value.length() - 1);
@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService{
     @Override
     @POST
     @Path("add")
-    @Consumes("application/x-www-form-urlencoded")
+    @Consumes("application/json")
     @Produces("text/plain")
     public Response addUser(String data) {
         Map<String, String> dataMap = UserServiceImpl.getQueryMap(data);
@@ -93,10 +93,10 @@ public class UserServiceImpl implements UserService{
         SearchClient client = DefaultSearchClient.create(DB_ADMIN, DB_ADMIN_KEY);
         SearchIndex<User> index = client.initIndex("user", User.class);
         try {        
-              UUID uuid = UUID.randomUUID();
-              String randomUUIDString = uuid.toString();
-              user.setObjectID(randomUUIDString);
-              index.saveObject(user).waitTask();
+            UUID uuid = UUID.randomUUID();
+            String randomUUIDString = uuid.toString();
+            user.setObjectID(randomUUIDString);
+            index.saveObject(user).waitTask();
             return Response.ok("Ok")
               .header("Access-Control-Allow-Origin", ALLOW_SITE)
               .header("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, OPTIONS")

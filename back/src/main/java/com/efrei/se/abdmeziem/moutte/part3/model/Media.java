@@ -70,6 +70,10 @@ public class Media {
     public ArrayList<String> getKeyWords() {
         return keyWords;
     }
+    
+    public void addKeyWord(String keyword) {
+        this.keyWords.add(keyword);
+    }
 
     public Media setKeyWords(ArrayList<String> keyWords) {
         this.keyWords = keyWords;
