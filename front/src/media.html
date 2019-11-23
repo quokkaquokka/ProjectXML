@@ -1,15 +1,26 @@
 <template>
     <h2>${heading}</h2>
     <div class="card">
-        
         <div class="card-header">
-            <h1><i class="${media.icon}"></i> ${media.name}<h1>
+            <h1>
+                <i class="${media.icon}"></i><input type="text" name="name" class="form-control" value.bind="media.name" disabled.bind="isEdit">
+            </h1>
+         
         </div>
     <div class="card-body">
-        <p>Artist: ${media.author}</p>
-        <p>Publicator: ${publicator.name} ${publicator.firstname}</p>
-        <p>Release date : ${media.date}</p>
+        <p> Artist: <input type="text" name="firstname" class="form-control" value.bind="media.author" disabled.bind="isEdit"></p>
+        
+        <p> Release date :<input type="text" name="firstname" class="form-control" value.bind="media.date" disabled.bind="isEdit"></p>
         <p repeat.for="key of media.keyWords"></p>
-        <span repeat.for="key of media.keyWords" class="badge badge-pill badge-success"> ${key}</span>
+        <span repeat.for="key of media.keyWords" class="badge badge-pill badge-success">${key}</span>
+
+        <p if.bind="!isEdit">icon (font awesome) (exemple : fas fa-compact-disc) : <input type="text" name="icon" class="form-control" value.bind="media.icon" disabled.bind="isEdit"></p>
+
+        <br>
+        <br>
+        <p> Publicator: ${publicator.name} ${publicator.firstname}</p>
+    </div>
+    <div if.bind="!isEdit">
+        <button type="submit" id="save" class="btn btn-primary" click.delegate="updateMedia()" ><i class="fas fa-save"></i></button>
     </div>
 </template>

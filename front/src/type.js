@@ -2,7 +2,7 @@ import config from './config'
 import axios from "axios";
 
 
-export class User {
+export class Type {
   heading = 'Welcome to the type page!';
     constructor() {
         this.types = null;

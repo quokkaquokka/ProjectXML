@@ -40,7 +40,11 @@ export class MyProfil {
     }
 
     goDetails(objectID) {
-        this.router.navigateToRoute('media', { objectID: objectID});
+        this.router.navigateToRoute('media', { objectID: objectID, isEdit: true});
+    }
+
+    goDetailsUpdate(objectID) {
+        this.router.navigateToRoute('media', { objectID: objectID, isEdit: false});
     }
 
     changed(objectID)
@@ -78,7 +82,6 @@ export class MyProfil {
             uid: this.user.objectID
         };
         const response = await axios.post('http://'+ config.host + '/media/add', data);
-
     }
 
 
