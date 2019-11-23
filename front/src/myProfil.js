@@ -9,9 +9,12 @@ import config from './config';
 export class MyProfil {
   heading = 'List of media!';
     constructor(router) {
-        this.medias = null;
         this.router = router;
+        this.medias = null;
         this.user = null;
+        this.types = null;
+        
+        
         this.isEdit = true;
         this.delete=null;
 
@@ -20,11 +23,20 @@ export class MyProfil {
         this.icon = null;
         this.keyWords = null;
         this.date = null;
+        this.selectType = null;
     }
 
     activate() {
         this.getMedias();
         this.getUser();
+        this.getTypes()
+    }
+
+    async getTypes() {
+        const response = await axios.get('http://'+ config.host +'/type/getAll/');
+        this.types = response.data.hits;
+        console.log(this.types);
+
     }
 
     async getUser() {

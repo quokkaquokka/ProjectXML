@@ -14,6 +14,7 @@ export class Media {
         this.media = null;
         this.publicator = null;
         this.isEdit = null;
+        this.selectedType = null;
     }
 
     activate(params) {
@@ -22,6 +23,9 @@ export class Media {
         (params.isEdit === 'false' ? this.isEdit = true: this.isEdit = false) 
         this.getMedia(params.objectID);
         this.comments = null;
+        
+        if(this.isEdit === false)
+            this.getTypes();
         return this.getComments(params.objectID);
 		
     }
@@ -29,31 +33,44 @@ export class Media {
     async getMedia(objectID) {
         const response = await axios.get('http://'+ config.host +'/media/get/'+ objectID);
         this.media = response.data.hits[0];
+        console.log(this.media.type)
         const responseUser = await axios.get('http://'+ config.host +'/user/get/'+ this.media.uid);
         this.publicator = responseUser.data.hits[0];
     }
 
+    async getTypes() {
+        const response = await axios.get('http://'+ config.host +'/type/getAll/');
+        this.types = response.data.hits;
+    }
+
+    async getComments(mediaID) {
+		const response = await axios.get('http://'+ config.host +'/comment/get/' + mediaID);
+        this.comments = response.data.hits;
+        console.log(response);
+	}
+
     async updateMedia() {
         var keywords = (this.media.keyWords || []).join(',');
+        console.log(this.selectedType || this.media.type);
         var data = {
             name: this.media.name,
             objectID: this.media.objectID,
             author: this.media.author,
             date: this.media.date,
-            uid: this.media.uid, 
+            uid: this.media.uid,
+            type: this.selectedType || this.media.type,
             keyWords: keywords
         };
 
-        const response = await axios.post('http://'+ config.host + '/media/update/', data);
+        const response = await axios.post('http://'+ config.host + '/media/update/', data)
+        .then(resp => {
+            this.media = data
+        });
+
         this.isEdit = !this.isEdit;
     }
 	
-	async getComments(mediaID) {
-        console.log("yuiolkj");
-		const response = await axios.get('http://'+ config.host +'/comment/get/' + mediaID);
-        this.comments = response.data.hits;
-        console.log(response);
-	}
+
 	
 	clicked()
     {
