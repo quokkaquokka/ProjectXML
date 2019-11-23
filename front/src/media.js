@@ -74,6 +74,7 @@ export class Media {
 	
 	clicked()
     {
+		console.log("ADD comment");
         document.getElementById("commt").style= "display: none";
 		this.isEdit = !this.isEdit;
 	}
