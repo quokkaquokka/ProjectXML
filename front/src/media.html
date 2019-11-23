@@ -26,8 +26,8 @@
 
 	<div class="card">
 		<div class="card-body">
-			<input type="text" name="commtext" class="form-control" placeholder='Add a comment..' value.bind="nComment">
-			<div style="float: right; margin-top: 10px"><button type="submit" id="commt" class="btn btn-warning" click.delegate="addComment()" ></button></div>
+			<input type="text" id="commt" name="commtext" class="form-control" placeholder='Add a comment..' value.bind="nComment">
+			<div style="float: right; margin-top: 10px"><button type="button" class="btn btn-primary" click.delegate="addComment()" ></button></div>
 		</div>
 	</div>
 	<div class="card" repeat.for="comment of comments">

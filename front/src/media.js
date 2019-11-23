@@ -63,10 +63,12 @@ export class Media {
 	}
 	
 	async addComment() {
+		console.log("ADD comment");
         var data = {
-            commtext: this.commtext,
-            grade : this.grade,
-            uid: this.user.objectID
+			mediaID: this.media.objectID, 
+            text: document.getElementById("commt").value,
+            grade: "5",
+            publisherID: "594439792"
         };
         const response = await axios.post('http://'+ config.host + '/comment/add', data);
     }
