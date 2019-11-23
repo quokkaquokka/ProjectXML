@@ -15,6 +15,7 @@ public interface UserService {
     public Response addUser(String data);
     public Response deleteUser(String id);
     public Response getUser(String id);
+    public Response getUserEmailPassword(String data);
     public Response getUsers();
     public Response updateUser(String data);
 }

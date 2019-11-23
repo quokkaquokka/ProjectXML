@@ -1,4 +1,4 @@
-TODO LIST
+﻿TODO LIST
 installer node,
 "npm i aurelia-cli" dans votre console node.js
 dans le fichier front "npm i", puis "au build", puis "au run" 
@@ -32,6 +32,7 @@ CRUD User (back et front)
 [x] Ajouter un user
 [x] Modifier un user
 [] supprimer un user
+[] recupérer un user
 
 
 

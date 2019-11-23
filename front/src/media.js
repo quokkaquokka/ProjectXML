@@ -13,26 +13,17 @@ export class Media {
 		this.nComment = '';
         this.media = null;
         this.publicator = null;
-<<<<<<< HEAD
         this.isEdit = null;
     }
 
     activate(params) {
         // this.isEdit === true , si le user est le meme que celui qui a poster
-        this.isEdit = params.isEdit;
-        (params.isEdit === 'false' ? this.isEdit = false: this.isEdit = true) 
-        return this.getMedia(params.objectID);
-        
-=======
-		this.comments = null;//H
-		//this.isEdit = true;//H
-    }
-
-    activate(params) {
-        console.log(params.objectID)
-		this.getComments();//H
+        this.isEdit = true;
+        (params.isEdit === 'false' ? this.isEdit = true: this.isEdit = false) 
         this.getMedia(params.objectID);
->>>>>>> 3e508ab048a6194c5130c516cf26922208cf8bf5
+        this.comments = null;
+        return this.getComments(params.objectID);
+		
     }
 
     async getMedia(objectID) {
@@ -44,8 +35,6 @@ export class Media {
 
     async updateMedia() {
         var keywords = (this.media.keyWords || []).join(',');
-        //if(this.media.keyWords != null)
-        //  keywords = this.media.keyWords.toString()
         var data = {
             name: this.media.name,
             objectID: this.media.objectID,
@@ -59,25 +48,25 @@ export class Media {
         this.isEdit = !this.isEdit;
     }
 	
-	async getComments() {//H
-		const response = await axios.get('http://'+ config.host +'/comment/getAll/');
+	async getComments(mediaID) {
+        console.log("yuiolkj");
+		const response = await axios.get('http://'+ config.host +'/comment/get/' + mediaID);
         this.comments = response.data.hits;
-        console.log(this.comments);
+        console.log(response);
 	}
 	
-	clicked()//H
+	clicked()
     {
         document.getElementById("commt").style= "display: none";
 		this.isEdit = !this.isEdit;
 	}
 	
-	async addComment() {//H
+	async addComment() {
         var data = {
             commtext: this.commtext,
             grade : this.grade,
             uid: this.user.objectID
         };
         const response = await axios.post('http://'+ config.host + '/comment/add', data);
-
     }
 }

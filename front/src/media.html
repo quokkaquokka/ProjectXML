@@ -7,7 +7,6 @@
             </h1>
          
         </div>
-<<<<<<< HEAD
     <div class="card-body">
         <p> Artist: <input type="text" name="firstname" class="form-control" value.bind="media.author" disabled.bind="isEdit"></p>
         
@@ -24,25 +23,16 @@
     <div if.bind="!isEdit">
         <button type="submit" id="save" class="btn btn-primary" click.delegate="updateMedia()" ><i class="fas fa-save"></i></button>
     </div>
-=======
-		<div class="card-body">
-			<p>Artist: ${media.author}</p>
-			<p>Publicator: ${publicator.name} ${publicator.firstname}</p>
-			<p>Release date : ${media.date}</p>
-			<p repeat.for="key of media.keyWords"></p>
-			<span repeat.for="key of media.keyWords" class="badge badge-pill badge-success"> ${key}</span>
-		</div>
-	</div>
+
 	<div class="card">
 		<div class="card-body">
-			<input type="text" name="commtext" class="form-control" placeholder='Add a comment..' value.bind="nComment" disabled.bind="isEdit">
-			<!--div style="float: right; margin-top: 10px"><button type="submit" id="commt" class="btn btn-warning" click.delegate="clicked()" ></button></div-->
+			<input type="text" name="commtext" class="form-control" placeholder='Add a comment..' value.bind="nComment">
+			<div style="float: right; margin-top: 10px"><button type="submit" id="commt" class="btn btn-warning" click.delegate="addComment()" ></button></div>
 		</div>
 	</div>
-	<div class="card" repeat.for="comment of comments"><!-- H from here -->
+	<div class="card" repeat.for="comment of comments">
 		<div class="card-body">
 			<p>${comment.text}</p>
 		</div>
-	</div><!-- H until here -->
->>>>>>> 3e508ab048a6194c5130c516cf26922208cf8bf5
+	</div>
 </template>

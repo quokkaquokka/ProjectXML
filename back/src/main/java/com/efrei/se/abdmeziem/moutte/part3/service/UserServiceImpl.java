@@ -34,9 +34,12 @@ public class UserServiceImpl implements UserService{
     
     private static Map<String, String> getQueryMap(String query)
     {
+
+        if(query == null)
+            return null;
+        Map<String, String> map = new HashMap<>();
         query = query.substring(1, query.length() - 1);
         String[] params = query.split(",");//maybe replace with "&"
-        Map<String, String> map = new HashMap<>();
         for (String param : params)
         {
             String name = param.split(":")[0];//maybe replace with "="
@@ -255,5 +258,33 @@ public class UserServiceImpl implements UserService{
     }
     
     
-    
+    /**
+    * The getUser by email and pasword, connect and return the user in the database 
+    * The function get the user with the email and password, there use a filter.
+    * @return Response
+    */
+    @Override
+    @POST
+    @Path("authentification")
+    @Consumes("application/json")
+    @Produces("application/json")
+    public Response getUserEmailPassword(String data) {
+        Map<String, String> dataMap = UserServiceImpl.getQueryMap(data);
+        String email = dataMap.get("email");
+        String password = dataMap.get("password");
+        System.out.print("email " + email + " password " + password);
+        
+        SearchClient client = DefaultSearchClient.create(DB_ADMIN, DB_ADMIN_KEY);
+        SearchIndex<User> index = client.initIndex("user", User.class);
+        SearchResult<User> user = index.search(new Query()
+         .setFilters("email:" + email + " AND password:" + password)
+         .setFilters("password:'" + password + "'")
+        );
+        return Response.ok(user)
+            .header("Access-Control-Allow-Origin", ALLOW_SITE)
+            .header("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, OPTIONS")
+            .header("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With")
+            .build();
+    }
+
 }
