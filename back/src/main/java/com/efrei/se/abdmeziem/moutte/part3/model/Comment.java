@@ -15,8 +15,17 @@ public class Comment {
     private String mediaID;
     private String text;
     private String grade;
+    private String publisherName;
     
     public Comment() {}
+    
+    public String getPublisherName() {
+        return publisherName;
+    }
+    
+    public void setPublisherName(String uname) {
+        publisherName = uname;
+    }
     
     public String getObjectID() {
         return objectID;

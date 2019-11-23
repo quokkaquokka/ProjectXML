@@ -35,10 +35,22 @@
 	<div class="card">
 		<div class="card-body">
 			<input type="text" id="commt" name="commtext" class="form-control" placeholder='Add a comment..' value.bind="nComment">
+			<div class="rating">
+				<button type="button" class="btn btn-warning" click.delegate="fifthStar()">☆</button>
+				<button type="button" class="btn btn-warning" click.delegate="fourthStar()">☆</button>
+				<button type="button" class="btn btn-warning" click.delegate="thirdStar()">☆</button>
+				<button type="button" class="btn btn-warning" click.delegate="secondStar()">☆</button>
+				<button type="button" class="btn btn-warning" click.delegate="firstStar()">☆</button>
+			</div>
 			<div style="float: right; margin-top: 10px"><button type="button" class="btn btn-primary" click.delegate="addComment()" ></button></div>
 		</div>
 	</div>
 	<div class="card" repeat.for="comment of comments">
+		<div class="card-header">
+            <h6>
+                <p>${comment.publisherName}</p>
+            </h6>
+        </div>
 		<div class="card-body">
 			<p>${comment.text}</p>
 		</div>

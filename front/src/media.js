@@ -15,6 +15,7 @@ export class Media {
         this.publicator = null;
         this.isEdit = null;
         this.selectedType = null;
+		this.stars = "0";
     }
 
     activate(params) {
@@ -80,13 +81,33 @@ export class Media {
 	}
 	
 	async addComment() {
+		if (this.stars.localeCompare("0") == 0)
+			return;
 		console.log("ADD comment");
         var data = {
 			mediaID: this.media.objectID, 
             text: document.getElementById("commt").value,
-            grade: "5",
-            publisherID: "594439792"
+            grade: this.stars,
+            publisherID: "594439792",
+			publisherName: "Camille Moutte"
         };
+		this.stars = "0";
         const response = await axios.post('http://'+ config.host + '/comment/add', data);
     }
+	
+	async firstStar() {
+		this.stars = "1";
+	}
+	async secondStar() {
+		this.stars = "2";
+	}
+	async thirdStar() {
+		this.stars = "3";
+	}
+	async fourthStar() {
+		this.stars = "4";
+	}
+	async fifthStar() {
+		this.stars = "5";
+	}
 }

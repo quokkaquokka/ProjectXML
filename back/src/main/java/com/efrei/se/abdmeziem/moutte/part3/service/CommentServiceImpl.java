@@ -78,6 +78,9 @@ public class CommentServiceImpl implements CommentService {
                 case "grade":
                     comment.setGrade(val);
                     break;
+                case "publisherName":
+                    comment.setPublisherName(val);
+                    break;
                 default:
                     System.out.println(key + " not found in switch case!!!!");
             }
@@ -182,7 +185,10 @@ public class CommentServiceImpl implements CommentService {
             switch(key) {
                 case "publisherID":
                     comment.setPublisherID(val);
-                    break;               
+                    break;
+                case "publisherName":
+                    comment.setPublisherName(val);
+                    break;
                 case "mediaID":
                     comment.setMediaID(val);
                     break;
