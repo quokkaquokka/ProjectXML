@@ -39,14 +39,17 @@ public class MediaServiceImpl implements MediaService {
     private static Map<String, String> getQueryMap(String query)
     {
         query = query.substring(1, query.length() - 1);
-        String[] params = query.split(",");
+        String[] params = query.split("\",\"");
         Map<String, String> map = new HashMap<>();
+        params[0] = params[0].substring(1, params[0].length());
         for (String param : params)
         {
-            String name = param.split(":")[0];
-            name = name.substring(1, name.length() - 1);
-            String value = URLDecoder.decode(param.split(":")[1]);
-            value = value.substring(1, value.length() - 1);
+            String[] keyValue = param.split("\":\"", 2);
+            String name = keyValue[0];
+            System.out.print(name);
+            
+            String value = keyValue[1];
+            System.out.print(value);
             map.put(name, value);
         }
         return map;
@@ -73,6 +76,7 @@ public class MediaServiceImpl implements MediaService {
     @Produces("text/plain")
     public Response addMedia(String data) {
         Map<String, String> dataMap = MediaServiceImpl.getQueryMap(data);
+        
         Media media = new Media();
         for (Map.Entry<String, String> entry : dataMap.entrySet()) {
             String key = entry.getKey();
@@ -212,7 +216,7 @@ public class MediaServiceImpl implements MediaService {
     @Override
     @POST
     @Path("update")
-    @Consumes("application/x-www-form-urlencoded")
+    @Consumes("application/json")
     @Produces("text/plain")
     public Response updateMedia(String data) {
         Map<String, String> dataMap = MediaServiceImpl.getQueryMap(data);

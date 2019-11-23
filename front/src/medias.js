@@ -23,6 +23,6 @@ export class Medias {
     }
 
     goDetails(objectID) {
-        this.router.navigateToRoute('media', { objectID: objectID});
+        this.router.navigateToRoute('media', { objectID: objectID, isEdit: false});
     }
 }

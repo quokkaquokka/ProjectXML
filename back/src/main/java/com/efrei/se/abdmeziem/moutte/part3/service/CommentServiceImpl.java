@@ -139,12 +139,13 @@ public class CommentServiceImpl implements CommentService {
     @Path("get/{objectID}")
     @Consumes("application/json")
     @Produces("application/json")
-    public Response getComment(String id) {
+    public Response getComment(@PathParam("objectID") String id) {
+        System.out.print(id);
         SearchClient client = DefaultSearchClient.create(DB_ADMIN, DB_ADMIN_KEY);
         SearchIndex<Comment> index = client.initIndex("comment", Comment.class);
-        SearchResult<Comment> comment = index.search(new Query()
-         .setFilters("objectID:'" + id + "'"));
-        return Response.ok(comment)
+        SearchResult<Comment> user = index.search(new Query()
+         .setFilters("mediaID:'" + id + "'"));
+        return Response.ok(user)
             .header("Access-Control-Allow-Origin", ALLOW_SITE)
             .header("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, OPTIONS")
             .header("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With")

@@ -6,7 +6,7 @@
             Bienvenue ${user.name} ${user.firstname}
         </div>
         <div class="card-body">
-                Name: <input type="text" name="name" class="form-control" value.bind="user.name"disabled.bind="isEdit">
+                Name: <input type="text" name="name" class="form-control" value.bind="user.name" disabled.bind="isEdit">
                 Firstname: <input type="text" name="firstname" class="form-control" value.bind="user.firstname" disabled.bind="isEdit">
                 Email: <input type="text" name="email" class="form-control" value.bind="user.email" disabled.bind="isEdit">
                 Street: <input type="text" name="street" class="form-control" value.bind="user.address" disabled.bind="isEdit">
@@ -32,6 +32,9 @@
                 outline:none;
             "> <i class="${media.icon}"></i> ${media.name}</button>
             </h1>
+
+            <button type="submit" click.delegate="goDetailsUpdate(media.objectID)" class="btn btn-primary float-right" > <i class="fas fa-edit"></i></button>
+            
         </div>
     <div class="card-body">
         <p>${media.author}</p>

@@ -1,4 +1,4 @@
-TODO LIST
+﻿TODO LIST
 installer node,
 "npm i aurelia-cli" dans votre console node.js
 dans le fichier front "npm i", puis "au build", puis "au run" 
@@ -21,10 +21,10 @@ CRUD TYPE des medias (back et front)
 
 
 CRUD Commentaires (back et front)
-[] Listes des types
-[] Ajouter un type
-[] Modifier un type
-[] supprimer un type
+[] Listes des commentaires (afficher par média)
+[] Ajouter un commentaire
+[] Modifier un commentaire (priorité basse)
+[] supprimer un commentaire
 
 
 CRUD User (back et front)
@@ -32,8 +32,10 @@ CRUD User (back et front)
 [x] Ajouter un user
 [x] Modifier un user
 [] supprimer un user
+[] recupérer un user
 
-
+Fixes:
+redirections après clicks sur les différents buttons
 
 
 

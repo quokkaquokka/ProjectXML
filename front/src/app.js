@@ -19,13 +19,6 @@ export class App {
         title: 'medias'
       },
       {
-        route: ['test'],
-        name: 'test',
-        moduleId: PLATFORM.moduleName('./test'),
-        nav: true,
-        title: 'test'
-      },
-      {
         route: ['user'],
         name: 'user',
         moduleId: PLATFORM.moduleName('./user'),
@@ -45,6 +38,13 @@ export class App {
         moduleId: PLATFORM.moduleName('./type'),
         nav: true,
         title: 'type'
+      },
+      {
+        route: ['login'],
+        name: 'login',
+        moduleId: PLATFORM.moduleName('./login'),
+        nav: true,
+        title: 'login'
       },
       {
         route: ['media'],
