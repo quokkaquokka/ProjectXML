@@ -18,6 +18,7 @@ public class Media {
     private String icon;
     private String date;
     private String uid;
+    private String type;
     private ArrayList<String> keyWords;
     
     public Media() {}
@@ -49,6 +50,14 @@ public class Media {
         return this;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public Media setType(String type) {
+        this.type = type;
+        return this;
+    }
     public String getDate() {
         return date;
     }

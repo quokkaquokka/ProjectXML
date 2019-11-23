@@ -94,6 +94,9 @@ public class MediaServiceImpl implements MediaService {
                 case "uid":
                     media.setUid(val);
                     break;
+                case "type":
+                    media.setType(val);
+                    break;
                 case "icon":
                     media.setIcon(val);
                     break;
@@ -101,7 +104,7 @@ public class MediaServiceImpl implements MediaService {
                     media.setDate(val);
                     break;
                 case "keyWords":
-                    splitKW(media, val);
+                    //splitKW(media, val);
                     break;
                 default:
                     System.out.println(key + " not found in switch case!!!!");
@@ -238,11 +241,14 @@ public class MediaServiceImpl implements MediaService {
                 case "uid":
                     media.setUid(val);
                     break;
+                case "type":
+                    media.setType(val);
+                    break;
                 case "date":
                     media.setDate(val);
                     break;
                 case "keyWords":
-                    splitKW(media, val);
+                    //splitKW(media, val);
                     break;
                 default:
                     System.out.println(key + " not found in switch case!!!!");
