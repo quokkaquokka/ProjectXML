@@ -14,6 +14,12 @@ export class Type {
         return this.getTypes();
     }
 
+    deactivate(){
+        this.types = null;
+        this.name = "";
+        this.isEdit = false;
+    }
+
     async getTypes() {
         const response = await axios.get('http://'+ config.host +'/type/getAll/');
         this.types = response.data.hits;
@@ -25,7 +31,8 @@ export class Type {
             name: this.name
         };
         const response = await axios.post('http://'+ config.host + '/type/add/', data);
-    
+        this.deactivate();
+        this.activate();    
     }
 
     async updateType(objectID, name) {
@@ -41,12 +48,16 @@ export class Type {
         document.getElementById(objectID.toString(10)).disabled = true;
         document.getElementById("updt" + objectID.toString(10)).style= "display: visible" ;
         document.getElementById("save" + objectID.toString(10)).style= "display: none";
+        this.deactivate();
+        this.activate();
     }
 
     async removeType(objectID){
         // console.log("objectID ", objectID);
         const response = await axios.get('http://'+ config.host +'/type/delete/' + objectID);
         // console.log(response);
+        this.deactivate();
+        this.activate();
         
     }
 

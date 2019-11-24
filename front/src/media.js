@@ -10,12 +10,12 @@ import config from './config';
 export class Media {
   heading = 'media!';
     constructor() {
-		this.nComment = '';
+		    this.nComment = '';
         this.media = null;
         this.publicator = null;
         this.isEdit = null;
         this.selectedType = null;
-		this.stars = "0";
+		    this.stars = "0";
     }
 
     activate(params) {
@@ -29,6 +29,15 @@ export class Media {
             this.getTypes();
         return this.getComments(params.objectID);
 		
+    }
+
+    deactivate() {
+      this.nComment = '';
+      this.media = null;
+      this.publicator = null;
+      this.isEdit = null;
+      this.selectedType = null;
+      this.stars = "0";
     }
 
     async getMedia(objectID) {
@@ -69,6 +78,8 @@ export class Media {
         });
 
         this.isEdit = !this.isEdit;
+        this.deactivate();
+        this.activate();
     }
 	
 
@@ -92,8 +103,10 @@ export class Media {
 			publisherName: "Camille Moutte"
         };
 		this.stars = "0";
-        const response = await axios.post('http://'+ config.host + '/comment/add', data);
-    }
+    const response = await axios.post('http://'+ config.host + '/comment/add', data);
+    this.deactivate();
+    this.activate();
+  }
 	
 	async firstStar() {
 		this.stars = "1";

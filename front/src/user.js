@@ -12,6 +12,10 @@ export class User {
         return this.getUsers();
     }
 
+    deactivate(){
+      this.users = null;
+    }
+
     async getUsers() {
         const response = await axios.get('http://'+ config.host +'/user/getAll/');
         this.users = response.data.hits;
@@ -28,6 +32,7 @@ export class User {
           email: this.email
       };
       const response = await axios.post('http://'+ config.host + '/user/add/', data);
-  
+      this.deactivate();
+      this.activate();
   }
 }

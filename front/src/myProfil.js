@@ -32,6 +32,20 @@ export class MyProfil {
         this.getTypes()
     }
 
+    deactivate(){
+        this.medias = null;
+        this.user = null;
+        this.types = null;
+
+
+        this.name = null;
+        this.author = null;
+        this.icon = null;
+        this.keyWords = null;
+        this.date = null;
+        this.selectType = null;
+    }
+
     async getTypes() {
         const response = await axios.get('http://'+ config.host +'/type/getAll/');
         this.types = response.data.hits;
@@ -83,6 +97,8 @@ export class MyProfil {
         document.getElementById("updt").style= "display: visible" ;
         document.getElementById("save").style= "display: none";
         this.isEdit = !this.isEdit;
+        this.deactivate();
+        this.activate();
     }
 
     async addMedia() {
@@ -95,11 +111,15 @@ export class MyProfil {
             uid: this.user.objectID
         };
         const response = await axios.post('http://'+ config.host + '/media/add', data);
+        this.deactivate();
+        this.activate();
     }
 
     async deleteMedia(objectID){
       const response = await axios.get('http://'+ config.host +'/media/delete/'+ objectID);
       this.delete = response.data;
-      console.log(this.delete)
+      console.log(this.delete);
+      this.deactivate();
+      this.activate();
     }
 }
