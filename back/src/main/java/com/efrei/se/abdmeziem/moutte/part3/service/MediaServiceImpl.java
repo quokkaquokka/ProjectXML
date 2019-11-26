@@ -105,7 +105,7 @@ public class MediaServiceImpl implements MediaService {
                     media.setDate(val);
                     break;
                 case "keyWords":
-                    //splitKW(media, val);
+                    splitKW(media, val);
                     break;
                 default:
                     System.out.println(key + " not found in switch case!!!!");

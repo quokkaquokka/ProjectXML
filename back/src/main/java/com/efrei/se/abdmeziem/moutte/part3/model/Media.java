@@ -19,7 +19,7 @@ public class Media {
     private String date;
     private String uid;
     private String type;
-    private ArrayList<String> keyWords;
+    private ArrayList<String> keyWords = new ArrayList<String>();
     
     public Media() {}
 
