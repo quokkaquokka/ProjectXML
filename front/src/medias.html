@@ -1,4 +1,9 @@
 <template>
+        <form class="form-inline md-form form-sm" action="javascript:">
+          <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search"
+            aria-label="Search" id="searchBar" keyup.delegate="getSearch()">
+          <button type="submit" class="btn btn-primary" click.delegate="getSearch()"><i class="fas fa-search" aria-hidden="true"></i></button>
+        </form>
         <h2>${heading}</h2>
         <div class="card" repeat.for="media of medias">
             

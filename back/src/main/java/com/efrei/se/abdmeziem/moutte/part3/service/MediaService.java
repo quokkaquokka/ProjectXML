@@ -17,5 +17,5 @@ public interface MediaService {
     public Response getMedia(String id);
     public Response getMedias();
     public Response updateMedia(String data);
-    
+    public Response getSearch(String data);
 }

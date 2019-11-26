@@ -15,6 +15,7 @@ import static com.efrei.se.abdmeziem.moutte.part3.utils.Constants.ALLOW_SITE;
 import static com.efrei.se.abdmeziem.moutte.part3.utils.Constants.DB_ADMIN;
 import static com.efrei.se.abdmeziem.moutte.part3.utils.Constants.DB_ADMIN_KEY;
 import java.net.URLDecoder;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -274,6 +275,26 @@ public class MediaServiceImpl implements MediaService {
         }
     }
     
-    
+    /**
+    * The getSearch, connect and get the data of the database corresponding to the result of the search.
+    * The function make a request to the database.
+    * @return Response
+    */
+    @Override
+    @GET
+    @Path("search/{keyword}")
+    @Consumes("application/json")
+    @Produces("application/json")
+    public Response getSearch(@PathParam("keyword") String search){
+        SearchClient client = DefaultSearchClient.create(DB_ADMIN, DB_ADMIN_KEY);
+        SearchIndex<Media> index = client.initIndex("media", Media.class);
+        SearchResult<Media> media = index.search(new Query(search)
+                .setAttributesToRetrieve(Arrays.asList("name","author","type","keyWords","icon")));
+        return Response.ok(media)
+            .header("Access-Control-Allow-Origin", ALLOW_SITE)
+            .header("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, OPTIONS")
+            .header("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With")
+            .build();
+    }
     
 }

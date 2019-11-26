@@ -16,7 +16,18 @@ export class Medias {
         return this.getMedias();
     }
 
-    async getMedias() {
+    async getSearch() {
+        if (document.getElementById('searchBar').value == ""){
+          this.activate();
+          return true;
+        }
+        const response = await axios.get('http://'+ config.host +'/media/search/' + document.getElementById('searchBar').value);
+        this.medias = response.data.hits;
+        console.log(this.medias);
+        return true;
+    }
+
+    async getMedias(){
         const response = await axios.get('http://'+ config.host +'/media/getAll/');
         this.medias = response.data.hits;
         console.log(this.medias);
