@@ -32,7 +32,7 @@ export class Type {
         };
         const response = await axios.post('http://'+ config.host + '/type/add/', data);
         this.deactivate();
-        this.activate();    
+        this.activate();   
     }
 
     async updateType(objectID, name) {
@@ -41,8 +41,6 @@ export class Type {
             name: name,
             objectID: objectID
         };
-
-
         const response = await axios.post('http://'+ config.host + '/type/update/', data);
 
         document.getElementById(objectID.toString(10)).disabled = true;
@@ -54,7 +52,7 @@ export class Type {
 
     async removeType(objectID){
         // console.log("objectID ", objectID);
-        const response = await axios.get('http://'+ config.host +'/type/delete/' + objectID);
+        const response = await axios.delete('http://'+ config.host +'/type/delete/' + objectID);
         // console.log(response);
         this.deactivate();
         this.activate();

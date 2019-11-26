@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.OPTIONS;
 import javax.ws.rs.POST;
@@ -32,13 +33,6 @@ import javax.ws.rs.core.Response;
  * @author QuokkaKoala
  */
 @Path("/type")
-//@Consumes(MediaType.APPLICATION_JSON)
-//@Produces(MediaType.APPLICATION_JSON)
-
-// origin, content-type, accept, x-requested-with 
-
-
-
 public class TypeServiceImpl implements TypeService {
     private static Map<String, String> getQueryMap(String query)
     {
@@ -133,12 +127,11 @@ public class TypeServiceImpl implements TypeService {
     * @return Response
     */
     @Override
-    @GET
+    @DELETE
     @Path("delete/{objectID}")
     @Consumes("application/json")
     @Produces("text/plain")
     public Response deleteType(@PathParam("objectID") String id) {
-        // id = id.substring(1, id.length() - 1);
         SearchClient client = DefaultSearchClient.create(DB_ADMIN, DB_ADMIN_KEY);
         SearchIndex<Type> index = client.initIndex("type", Type.class);
         
