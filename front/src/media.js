@@ -25,8 +25,7 @@ export class Media {
         this.getMedia(params.objectID);
         this.comments = null;
         
-        if(this.isEdit === false)
-            this.getTypes();
+        this.getTypes();
         return this.getComments(params.objectID);
 		
     }
@@ -43,7 +42,7 @@ export class Media {
     async getMedia(objectID) {
         const response = await axios.get('http://'+ config.host +'/media/get/'+ objectID);
         this.media = response.data.hits[0];
-        console.log(this.media.type)
+        console.log(response)
         const responseUser = await axios.get('http://'+ config.host +'/user/get/'+ this.media.uid);
         this.publicator = responseUser.data.hits[0];
     }

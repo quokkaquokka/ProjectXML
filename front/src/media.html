@@ -15,7 +15,7 @@
         <span repeat.for="key of media.keyWords" class="badge badge-pill badge-success">${key}</span>
 
         <p if.bind="!isEdit">icon (font awesome) (exemple : fas fa-compact-disc) : <input type="text" name="icon" class="form-control" value.bind="media.icon" disabled.bind="isEdit"></p>
-        <p>type : ${media.type}</p>
+        <p if.bind="isEdit">type : ${media.type}</p>
         <p if.bind="!isEdit">type
             <select class="form-control" value.bind="selectedType">
                 <option model.bind="null">Choose...</option>
