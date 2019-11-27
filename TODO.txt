@@ -36,7 +36,7 @@ CRUD User (back et front)
 
 Fixes:
 redirections après clicks sur les différents buttons (fait majoritairement dans myProfil, pas fait pour les commentaires dans media)
-
+n'afficher les médias que de l'utilisateur actuel dans myProfil
 
 
 Example of the test of API : 
