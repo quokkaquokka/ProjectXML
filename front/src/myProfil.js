@@ -42,7 +42,8 @@ export class MyProfil {
 
     async getUser() {
         // ATTTENTION LE USER EST CHARGER A LA MAIN
-        const response = await axios.get('http://'+ config.host +'/user/get/' + '594439792');
+        var objectID = localStorage.getItem("objectID");
+        const response = await axios.get('http://'+ config.host +'/user/get/' + objectID);
         this.user = response.data.hits[0];
         console.log(this.user);
         this.getMedias();
