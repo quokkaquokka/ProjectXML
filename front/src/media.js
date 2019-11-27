@@ -110,17 +110,26 @@ export class Media {
 	async firstStar() {
 		this.stars = "1";
 		document.getElementById("star1").value = "★";
+		document.getElementById("star2").value = "☆";
+		document.getElementById("star3").value = "☆";
+		document.getElementById("star4").value = "☆";
+		document.getElementById("star5").value = "☆";
 	}
 	async secondStar() {
 		this.stars = "2";
 		document.getElementById("star1").value = "★";
 		document.getElementById("star2").value = "★";
+		document.getElementById("star3").value = "☆";
+		document.getElementById("star4").value = "☆";
+		document.getElementById("star5").value = "☆";
 	}
 	async thirdStar() {
 		this.stars = "3";
 		document.getElementById("star1").value = "★";
 		document.getElementById("star2").value = "★";
 		document.getElementById("star3").value = "★";
+		document.getElementById("star4").value = "☆";
+		document.getElementById("star5").value = "☆";
 	}
 	async fourthStar() {
 		this.stars = "4";
@@ -128,6 +137,7 @@ export class Media {
 		document.getElementById("star2").value = "★";
 		document.getElementById("star3").value = "★";
 		document.getElementById("star4").value = "★";
+		document.getElementById("star5").value = "☆";
 	}
 	async fifthStar() {
 		this.stars = "5";
