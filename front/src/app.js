@@ -65,6 +65,13 @@ export class App {
         moduleId: PLATFORM.moduleName('./media'),
         nav: false,
         title: 'media'
+      },
+      {
+        route: ['userMedias'],
+        name: 'userMedias',
+        moduleId:PLATFORM.moduleName('./userMedias'),
+        nav: false,
+        title: 'userMedias'
       }
     ]);
 

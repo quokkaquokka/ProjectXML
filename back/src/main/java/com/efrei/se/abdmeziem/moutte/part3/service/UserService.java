@@ -18,4 +18,5 @@ public interface UserService {
     public Response getUserEmailPassword(String data);
     public Response getUsers();
     public Response updateUser(String data);
+    public Response getSearch(String search);
 }

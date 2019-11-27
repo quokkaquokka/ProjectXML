@@ -26,24 +26,11 @@ export class MyProfil {
     }
 
     activate() {
-        this.getMedias();
         this.getUser();
+
+        //this.getMedias();
+
         return this.getTypes()
-    }
-
-    deactivate(){
-        this.medias = null;
-        this.user = null;
-        this.types = null;
-
-        this.name = null;
-        this.author = null;
-        this.icon = null;
-        this.keyWords = null;
-        this.date = null;
-        this.selectType = null;
-
-       // this.delete = null;
     }
 
     async getTypes() {
@@ -58,10 +45,11 @@ export class MyProfil {
         const response = await axios.get('http://'+ config.host +'/user/get/' + '594439792');
         this.user = response.data.hits[0];
         console.log(this.user);
+        this.getMedias();
     }
 
     async getMedias() {
-        const response = await axios.get('http://'+ config.host +'/media/getAll/');
+        const response = await axios.get('http://'+ config.host +'/media/getAuthor/' + this.user.objectID);
         this.medias = response.data.hits;
         console.log(this.medias);
     }
@@ -97,8 +85,7 @@ export class MyProfil {
         document.getElementById("updt").style= "display: visible" ;
         document.getElementById("save").style= "display: none";
         this.isEdit = !this.isEdit;
-        this.deactivate();
-        this.activate();
+        this.getUser();
     }
 
     async addMedia() {
@@ -112,8 +99,7 @@ export class MyProfil {
             keyWords : this.keyWords || " "
         };
         const response = await axios.post('http://'+ config.host + '/media/add', data);
-        this.deactivate();
-        this.activate();
+        this.getMedias();
     }
 
     async deleteMedia(objectID){
@@ -122,7 +108,6 @@ export class MyProfil {
       // console.log(this.delete);
       console.log("rrr", response);
       location.reload(); 
-      this.deactivate();
-      this.activate();
+      this.getMedias();
     }
 }

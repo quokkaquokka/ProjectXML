@@ -9,6 +9,7 @@ import com.efrei.se.abdmeziem.moutte.part3.model.User;
 import static com.efrei.se.abdmeziem.moutte.part3.utils.Constants.DB_ADMIN;
 import static com.efrei.se.abdmeziem.moutte.part3.utils.Constants.DB_ADMIN_KEY;
 import java.net.URLDecoder;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -257,6 +258,27 @@ public class UserServiceImpl implements UserService{
          .setFilters("password:'" + password + "'")
         );
         return Response.ok(user).build();
+    }
+    
+    /**
+    * The getSearch, connect and get the data of the database corresponding to the result of the search.
+    * The function make a request to the database.
+    * @return Response
+    */
+    @Override
+    @GET
+    @Path("search/{keyword}")
+    @Consumes("application/json")
+    @Produces("application/json")
+    public Response getSearch(@PathParam("keyword") String search){
+        try{
+        SearchIndex<User> index = connectionDB();
+        SearchResult<User> media = index.search(new Query(search)
+                .setAttributesToRetrieve(Arrays.asList("name","city","postalcode","email","address","firstname")));
+        return Response.ok(media).build();
+        } catch(Error error){
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
 }

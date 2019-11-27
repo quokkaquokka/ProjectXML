@@ -30,16 +30,6 @@ export class Media {
 		
     }
 
-    deactivate() {
-      this.nComment = '';
-      this.media = null;
-      this.publicator = null;
-      this.isEdit = null;
-      this.selectedType = null;
-      this.updateKeyWords = null;
-      this.stars = "0";
-    }
-
     async getMedia(objectID) {
         const response = await axios.get('http://'+ config.host +'/media/get/'+ objectID);
         this.media = response.data.hits[0];
@@ -82,22 +72,17 @@ export class Media {
         data.isEdit = 'false';
 
         this.isEdit = !this.isEdit;
-        this.deactivate();
-        this.activate(data);
+        this.getMedia();
     }
 	
 
 	
-	clicked()
-    {
-		console.log("ADD comment");
-        document.getElementById("commt").style= "display: none";
-		this.isEdit = !this.isEdit;
-	}
 	
 	async addComment() {
-		if (this.stars.localeCompare("0") == 0)
+		if (this.stars.localeCompare("0") == 0) {
+			alert("rating needed to comment on media");
 			return;
+		}
 		console.log("ADD comment");
         var data = {
 			mediaID: this.media.objectID, 
@@ -108,23 +93,48 @@ export class Media {
         };
 		this.stars = "0";
     const response = await axios.post('http://'+ config.host + '/comment/add', data);
-    this.deactivate();
-    this.activate();
+    this.comments=null;
+    this.getComments(this.media.objectID);
   }
 	
 	async firstStar() {
 		this.stars = "1";
+		document.getElementById("star1").value = "★";
+		document.getElementById("star2").value = "☆";
+		document.getElementById("star3").value = "☆";
+		document.getElementById("star4").value = "☆";
+		document.getElementById("star5").value = "☆";
 	}
 	async secondStar() {
 		this.stars = "2";
+		document.getElementById("star1").value = "★";
+		document.getElementById("star2").value = "★";
+		document.getElementById("star3").value = "☆";
+		document.getElementById("star4").value = "☆";
+		document.getElementById("star5").value = "☆";
 	}
 	async thirdStar() {
 		this.stars = "3";
+		document.getElementById("star1").value = "★";
+		document.getElementById("star2").value = "★";
+		document.getElementById("star3").value = "★";
+		document.getElementById("star4").value = "☆";
+		document.getElementById("star5").value = "☆";
 	}
 	async fourthStar() {
 		this.stars = "4";
+		document.getElementById("star1").value = "★";
+		document.getElementById("star2").value = "★";
+		document.getElementById("star3").value = "★";
+		document.getElementById("star4").value = "★";
+		document.getElementById("star5").value = "☆";
 	}
 	async fifthStar() {
 		this.stars = "5";
+		document.getElementById("star1").value = "★";
+		document.getElementById("star2").value = "★";
+		document.getElementById("star3").value = "★";
+		document.getElementById("star4").value = "★";
+		document.getElementById("star5").value = "★";
 	}
 }
