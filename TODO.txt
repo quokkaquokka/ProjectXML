@@ -21,8 +21,8 @@ CRUD TYPE des medias (back et front)
 
 
 CRUD Commentaires (back et front)
-[] Listes des commentaires (afficher par média)
-[] Ajouter un commentaire
+[x] Listes des commentaires (afficher par média)
+[] Ajouter un commentaire (assigner ID & firstname name de l'utilisateur actuel)
 [] Modifier un commentaire (priorité basse)
 [] supprimer un commentaire
 
