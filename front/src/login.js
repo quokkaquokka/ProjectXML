@@ -21,12 +21,12 @@ export class Login {
             email : this.email,
             password : this.password
         }
-        console.log(this.email, this.password)
         const response = await axios.post('http://'+ config.host +'/user/authentification', data);
         console.log(response);
         var user = response.data.hits[0];
         localStorage.setItem("email", user.email);
         localStorage.setItem("objectID", user.objectID);
+        localStorage.setItem("name", user.name + ' ' + user.firstname);
         this.signaler.signal('my-signal');
         this.router.navigate('myProfil')
     }

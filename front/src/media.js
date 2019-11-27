@@ -88,8 +88,8 @@ export class Media {
 			mediaID: this.media.objectID, 
             text: document.getElementById("commt").value,
             grade: this.stars,
-            publisherID: "594439792",   // ID A MODIFIER
-			publisherName: "Camille Moutte"  // A MODIFIER
+            publisherID: localStorage.getItem("objectID"),
+			publisherName: localStorage.setItem("name")
         };
 		this.stars = "0";
     const response = await axios.post('http://'+ config.host + '/comment/add', data);

@@ -28,8 +28,7 @@ export class MyProfil {
     activate() {
         this.getUser();
 
-        //this.getMedias();
-
+        this.getMedias();
         return this.getTypes()
     }
 
@@ -41,7 +40,6 @@ export class MyProfil {
     }
 
     async getUser() {
-        // ATTTENTION LE USER EST CHARGER A LA MAIN
         var objectID = localStorage.getItem("objectID");
         const response = await axios.get('http://'+ config.host +'/user/get/' + objectID);
         this.user = response.data.hits[0];
