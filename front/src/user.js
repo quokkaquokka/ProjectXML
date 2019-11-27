@@ -15,10 +15,6 @@ export class User {
         return this.getUsers();
     }
 
-    deactivate(){
-      this.users = null;
-    }
-
     async getSearch() {
       if (document.getElementById('searchBar').value == ""){
         this.activate();
@@ -46,8 +42,7 @@ export class User {
           email: this.email
       };
       const response = await axios.post('http://'+ config.host + '/user/add/', data);
-      this.deactivate();
-      this.activate();
+      this.getUsers();
   }
 
     goUserMedias(objectID){

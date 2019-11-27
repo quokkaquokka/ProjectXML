@@ -28,20 +28,6 @@ export class MyProfil {
         return this.getTypes()
     }
 
-    deactivate(){
-        this.medias = null;
-        this.user = null;
-        this.types = null;
-
-        this.name = null;
-        this.author = null;
-        this.icon = null;
-        this.keyWords = null;
-        this.date = null;
-        this.selectType = null;
-
-    }
-
     async getTypes() {
         const response = await axios.get('http://'+ config.host +'/type/getAll/');
         this.types = response.data.hits;

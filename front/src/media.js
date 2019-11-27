@@ -30,16 +30,6 @@ export class Media {
 		
     }
 
-    deactivate() {
-      this.nComment = '';
-      this.media = null;
-      this.publicator = null;
-      this.isEdit = null;
-      this.selectedType = null;
-      this.updateKeyWords = null;
-      this.stars = "0";
-    }
-
     async getMedia(objectID) {
         const response = await axios.get('http://'+ config.host +'/media/get/'+ objectID);
         this.media = response.data.hits[0];
@@ -82,8 +72,7 @@ export class Media {
         data.isEdit = 'false';
 
         this.isEdit = !this.isEdit;
-        this.deactivate();
-        this.activate(data);
+        this.getMedia();
     }
 	
 
