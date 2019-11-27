@@ -90,9 +90,10 @@ export class Media {
 	
 	
 	async addComment() {
-		if (this.stars.localeCompare("0") == 0)
+		if (this.stars.localeCompare("0") == 0) {
 			alert("rating needed to comment on media");
 			return;
+		}
 		console.log("ADD comment");
         var data = {
 			mediaID: this.media.objectID, 
