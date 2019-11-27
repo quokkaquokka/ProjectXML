@@ -160,12 +160,10 @@ public class MediaServiceImpl implements MediaService {
         SearchIndex<Media> index = connectionDB();
         try{
            index.deleteObjectAsync(id);
-            SearchClient client = DefaultSearchClient.create(DB_ADMIN, DB_ADMIN_KEY);
-            SearchIndex<Comment> indexComment = client.initIndex("comment", Comment.class);
-            Query query = new Query("query")
-              .setFilters("mediaID:" + id);
-            
-            indexComment.deleteByAsync(query);
+           SearchClient client = DefaultSearchClient.create(DB_ADMIN, DB_ADMIN_KEY);
+           SearchIndex<Comment> indexComment = client.initIndex("comment", Comment.class);
+           Query query = new Query().setFilters("mediaID:'" + id + "'");
+           indexComment.deleteByAsync(query);
            return Response.ok("ok").build();
         }
         catch(Exception e) {

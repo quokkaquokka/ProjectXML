@@ -88,15 +88,10 @@ export class Media {
 	
 
 	
-	clicked()
-    {
-		console.log("ADD comment");
-        document.getElementById("commt").style= "display: none";
-		this.isEdit = !this.isEdit;
-	}
 	
 	async addComment() {
 		if (this.stars.localeCompare("0") == 0)
+			alert("rating needed to comment on media");
 			return;
 		console.log("ADD comment");
         var data = {
@@ -114,17 +109,32 @@ export class Media {
 	
 	async firstStar() {
 		this.stars = "1";
+		document.getElementById("star1").value = "★";
 	}
 	async secondStar() {
 		this.stars = "2";
+		document.getElementById("star1").value = "★";
+		document.getElementById("star2").value = "★";
 	}
 	async thirdStar() {
 		this.stars = "3";
+		document.getElementById("star1").value = "★";
+		document.getElementById("star2").value = "★";
+		document.getElementById("star3").value = "★";
 	}
 	async fourthStar() {
 		this.stars = "4";
+		document.getElementById("star1").value = "★";
+		document.getElementById("star2").value = "★";
+		document.getElementById("star3").value = "★";
+		document.getElementById("star4").value = "★";
 	}
 	async fifthStar() {
 		this.stars = "5";
+		document.getElementById("star1").value = "★";
+		document.getElementById("star2").value = "★";
+		document.getElementById("star3").value = "★";
+		document.getElementById("star4").value = "★";
+		document.getElementById("star5").value = "★";
 	}
 }

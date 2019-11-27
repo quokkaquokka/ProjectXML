@@ -36,11 +36,11 @@
 		<div class="card-body">
 			<input type="text" id="commt" name="commtext" class="form-control" placeholder='Add a comment..' value.bind="nComment">
 			<div class="rating">
-				<button type="button" class="btn btn-warning" click.delegate="fifthStar()">☆</button>
-				<button type="button" class="btn btn-warning" click.delegate="fourthStar()">☆</button>
-				<button type="button" class="btn btn-warning" click.delegate="thirdStar()">☆</button>
-				<button type="button" class="btn btn-warning" click.delegate="secondStar()">☆</button>
-				<button type="button" class="btn btn-warning" click.delegate="firstStar()">☆</button>
+				<input id="star1" type="button" class="btn btn-warning" click.delegate="firstStar()" value="☆"/>
+				<input id="star2" type="button" class="btn btn-warning" click.delegate="secondStar()" value="☆"/>
+				<input id="star3" type="button" class="btn btn-warning" click.delegate="thirdStar()" value="☆"/>
+				<input id="star4" type="button" class="btn btn-warning" click.delegate="fourthStar()" value="☆"/>
+				<input id="star5" type="button" class="btn btn-warning" click.delegate="fifthStar()" value="☆"/>
 			</div>
 			<div style="float: right; margin-top: 10px"><button type="button" class="btn btn-primary" click.delegate="addComment()" ><i class="fas fa-plus"></i></button></div>
 		</div>
