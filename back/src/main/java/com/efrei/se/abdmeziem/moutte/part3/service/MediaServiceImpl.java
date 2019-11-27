@@ -162,9 +162,8 @@ public class MediaServiceImpl implements MediaService {
            index.deleteObjectAsync(id);
             SearchClient client = DefaultSearchClient.create(DB_ADMIN, DB_ADMIN_KEY);
             SearchIndex<Comment> indexComment = client.initIndex("comment", Comment.class);
-            Query query = new Query("query")
+            Query query = new Query()
               .setFilters("mediaID:" + id);
-            
             indexComment.deleteByAsync(query);
            return Response.ok("ok").build();
         }
