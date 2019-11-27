@@ -1,12 +1,10 @@
 <template>
     <div class="card">
     <div class="card-header">
-        <i class="fas fa-cog"></i> Management des types
-      <div class="float-right">
-        <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#modalAdd"><i class="fas fa-plus"></i></button>
-      </div>
+        <h3><i class="fas fa-cog"></i> Types management</h3>
     </div>
-    
+
+    <div class="card-body">
     <table class="table table-striped">
         <thead>
           <tr>
@@ -25,25 +23,29 @@
           </tr>
         </tbody>
     </table>
+    <button type="submit" class="btn btn-success float-right" data-toggle="modal" data-target="#modalAdd"><i class="fas fa-plus"></i> Add a new type</button>
+    </div>
+  </div>
 
     <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="modalAddTitle" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="modalAddTitle">Add type of media</h5>
+                  <h5 class="modal-title" id="modalAddTitle">Add a type of media</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
+                <form action="Javascript:">
                 <div class="modal-body">
                     Name: <input type="text" name="name" class="form-control" value.bind="name"><br>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="button" click.delegate="addType()" class="btn btn-primary" data-dismiss="modal">Save</button>
+                  <button type="submit" click.delegate="addType()" class="btn btn-primary" data-dismiss="modal">Save</button>
                 </div>
+              </form>
               </div>
             </div>
-          </div>
           </div>
 </template>
