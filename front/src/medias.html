@@ -1,9 +1,14 @@
 <template>
-        <form class="form-inline md-form form-sm" action="javascript:">
-          <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search for a media"
-            aria-label="Search" id="searchBar" keyup.delegate="getSearch()">
-          <button type="submit" class="btn btn-primary" click.delegate="getSearch()"><i class="fas fa-search" aria-hidden="true"></i></button>
-        </form>
+  <div class="w-100">
+    <form class="form-row" action="javascript:">
+      <div class="col-11">
+        <input class="form-control searchBar" type="text" placeholder="Search for a media" aria-label="Search" id="searchBar" keyup.delegate="getSearch()">
+      </div>
+      <div class="col-1">
+        <button type="submit" class="btn btn-primary w-100 searchBar" click.delegate="getSearch()"><i class="fas fa-search" aria-hidden="true"></i></button>
+      </div>
+    </form>
+  </div>
         <h2>${heading}</h2>
         <div class="card" repeat.for="media of medias">
             
