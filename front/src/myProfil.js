@@ -28,7 +28,7 @@ export class MyProfil {
     activate() {
         this.getUser();
 
-        this.getMedias();
+        //this.getMedias();
         return this.getTypes()
     }
 
@@ -88,6 +88,7 @@ export class MyProfil {
     }
 
     async addMedia() {
+        console.log("ADDDD")
         var data = {
             name: this.name || " ",
             author : this.author || " ",

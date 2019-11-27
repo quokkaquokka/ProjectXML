@@ -16,6 +16,17 @@ export class App {
         }
       },
       {
+        route: ['user'],
+        name: 'user',
+        moduleId: PLATFORM.moduleName('./user'),
+        nav: true,
+        title: 'user',
+        settings:{
+          img: 'fas fa-users',
+          data: 'true'
+        }
+      },
+      {
         route: ['myProfil'],
         name: 'myProfil',
         moduleId: PLATFORM.moduleName('./myProfil'),
