@@ -52,7 +52,6 @@ export class Type {
         const response = await axios.delete('http://'+ config.host +'/type/delete/' + objectID);
         this.deactivate();
         this.activate();
-        
     }
 
     changed(objectID)

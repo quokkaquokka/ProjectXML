@@ -13,10 +13,9 @@ export class MyProfil {
         this.medias = null;
         this.user = null;
         this.types = null;
-        
-        
+
         this.isEdit = true;
-        this.delete=null;
+        //this.delete=null;
 
         this.name = null;
         this.author = null;
@@ -29,7 +28,7 @@ export class MyProfil {
     activate() {
         this.getMedias();
         this.getUser();
-        this.getTypes()
+        return this.getTypes()
     }
 
     deactivate(){
@@ -43,6 +42,8 @@ export class MyProfil {
         this.keyWords = null;
         this.date = null;
         this.selectType = null;
+
+       // this.delete = null;
     }
 
     async getTypes() {
@@ -117,8 +118,10 @@ export class MyProfil {
 
     async deleteMedia(objectID){
       const response = await axios.delete('http://'+ config.host +'/media/delete/'+ objectID);
-      this.delete = response.data;
-      console.log(this.delete);
+      // this.delete = response.data;
+      // console.log(this.delete);
+      console.log("rrr", response);
+      location.reload(); 
       this.deactivate();
       this.activate();
     }

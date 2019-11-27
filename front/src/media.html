@@ -1,5 +1,4 @@
 <template>
-    <h2>${heading}</h2>
     <div class="card">
         <div class="card-header">
             <h1>
@@ -11,8 +10,7 @@
         <p> Artist: <input type="text" name="firstname" class="form-control" value.bind="media.author" disabled.bind="isEdit"></p>
         
         <p> Release date :<input type="text" name="firstname" class="form-control" value.bind="media.date" disabled.bind="isEdit"></p>
-        <p repeat.for="key of media.keyWords"></p>
-        <span repeat.for="key of media.keyWords" class="badge badge-pill badge-success">${key}</span>
+        
 
         <p if.bind="!isEdit">icon (font awesome) (exemple : fas fa-compact-disc) : <input type="text" name="icon" class="form-control" value.bind="media.icon" disabled.bind="isEdit"></p>
         <p if.bind="isEdit">type : ${media.type}</p>
@@ -24,6 +22,8 @@
                 </option>
             </select>
         </p>
+        <span repeat.for="key of media.keyWords" class="badge badge-pill badge-success">${key}</span>
+        <p>Keys words:<input type="text" name="keyWords" class="form-control" value.bind="updateKeyWords" disabled.bind="isEdit"></p>
         <br>
         <br>
         <p> Publicator: ${publicator.name} ${publicator.firstname}</p>

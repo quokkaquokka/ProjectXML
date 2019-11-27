@@ -10,6 +10,7 @@ import com.algolia.search.SearchClient;
 import com.algolia.search.SearchIndex;
 import com.algolia.search.models.indexing.Query;
 import com.algolia.search.models.indexing.SearchResult;
+import com.efrei.se.abdmeziem.moutte.part3.model.Comment;
 import com.efrei.se.abdmeziem.moutte.part3.model.Media;
 import static com.efrei.se.abdmeziem.moutte.part3.utils.Constants.DB_ADMIN;
 import static com.efrei.se.abdmeziem.moutte.part3.utils.Constants.DB_ADMIN_KEY;
@@ -159,6 +160,12 @@ public class MediaServiceImpl implements MediaService {
         SearchIndex<Media> index = connectionDB();
         try{
            index.deleteObjectAsync(id);
+            SearchClient client = DefaultSearchClient.create(DB_ADMIN, DB_ADMIN_KEY);
+            SearchIndex<Comment> indexComment = client.initIndex("comment", Comment.class);
+            Query query = new Query("query")
+              .setFilters("mediaID:" + id);
+            
+            indexComment.deleteByAsync(query);
            return Response.ok("ok").build();
         }
         catch(Exception e) {

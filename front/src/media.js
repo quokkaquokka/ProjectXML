@@ -8,14 +8,14 @@ import config from './config';
 
 @inject(Router)
 export class Media {
-  heading = 'media!';
     constructor() {
-		    this.nComment = '';
+		this.nComment = '';
         this.media = null;
         this.publicator = null;
         this.isEdit = null;
         this.selectedType = null;
-		    this.stars = "0";
+        this.updateKeyWords = null;
+		this.stars = "0";
     }
 
     activate(params) {
@@ -36,6 +36,7 @@ export class Media {
       this.publicator = null;
       this.isEdit = null;
       this.selectedType = null;
+      this.updateKeyWords = null;
       this.stars = "0";
     }
 
@@ -43,6 +44,8 @@ export class Media {
         const response = await axios.get('http://'+ config.host +'/media/get/'+ objectID);
         this.media = response.data.hits[0];
         console.log(response)
+        this.updateKeyWords = this.media.keyWords;
+        this.updateKeyWords = (this.updateKeyWords || []).join(',');
         const responseUser = await axios.get('http://'+ config.host +'/user/get/'+ this.media.uid);
         this.publicator = responseUser.data.hits[0];
     }
@@ -59,7 +62,7 @@ export class Media {
 	}
 
     async updateMedia() {
-        var keywords = (this.media.keyWords || []).join(',');
+        // var keywords = (this.media.keyWords || []).join(',');
         console.log(this.selectedType || this.media.type);
         var data = {
             name: this.media.name,
@@ -68,7 +71,7 @@ export class Media {
             date: this.media.date,
             uid: this.media.uid,
             type: this.selectedType || this.media.type,
-            keyWords: keywords
+            keyWords: this.updateKeyWords
         };
 
         const response = await axios.put('http://'+ config.host + '/media/update/', data)
@@ -76,9 +79,11 @@ export class Media {
             this.media = data
         });
 
+        data.isEdit = 'false';
+
         this.isEdit = !this.isEdit;
-        //?? this.deactivate();
-        this.activate();
+        this.deactivate();
+        this.activate(data);
     }
 	
 
@@ -98,8 +103,8 @@ export class Media {
 			mediaID: this.media.objectID, 
             text: document.getElementById("commt").value,
             grade: this.stars,
-            publisherID: "594439792",
-			publisherName: "Camille Moutte"
+            publisherID: "594439792",   // ID A MODIFIER
+			publisherName: "Camille Moutte"  // A MODIFIER
         };
 		this.stars = "0";
     const response = await axios.post('http://'+ config.host + '/comment/add', data);
