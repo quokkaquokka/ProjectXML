@@ -90,9 +90,11 @@ export class Media {
 	
 	
 	async addComment() {
-		if (this.stars.localeCompare("0") == 0)
+    if (this.stars.localeCompare("0") == 0)
+    {
 			alert("rating needed to comment on media");
-			return;
+      return;
+    }
 		console.log("ADD comment");
         var data = {
 			mediaID: this.media.objectID, 
@@ -103,8 +105,8 @@ export class Media {
         };
 		this.stars = "0";
     const response = await axios.post('http://'+ config.host + '/comment/add', data);
-    this.deactivate();
-    this.activate();
+    this.comments=null;
+    this.getComments(this.media.objectID);
   }
 	
 	async firstStar() {
