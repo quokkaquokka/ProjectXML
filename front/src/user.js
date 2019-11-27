@@ -1,11 +1,14 @@
 import config from './config'
 import axios from "axios";
+import {inject}  from "aurelia-framework";
+import {Router}  from "aurelia-router";
 
-
+@inject(Router)
 export class User {
   heading = 'Welcome to the user page!';
-    constructor() {
+    constructor(router) {
         this.users = null;
+        this.router=router;
     }
 
     activate() {
@@ -15,6 +18,17 @@ export class User {
     deactivate(){
       this.users = null;
     }
+
+    async getSearch() {
+      if (document.getElementById('searchBar').value == ""){
+        this.activate();
+        return true;
+      }
+      const response = await axios.get('http://'+ config.host +'/user/search/' + document.getElementById('searchBar').value);
+      this.users = response.data.hits;
+      console.log(this.users);
+      return true;
+  }
 
     async getUsers() {
         const response = await axios.get('http://'+ config.host +'/user/getAll/');
@@ -35,4 +49,8 @@ export class User {
       this.deactivate();
       this.activate();
   }
+
+    goUserMedias(objectID){
+      this.router.navigateToRoute('userMedias', { objectID: objectID});
+    }
 }
