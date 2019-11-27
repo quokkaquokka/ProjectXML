@@ -1,0 +1,13 @@
+<template bindable="router">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" role="navigation">
+      <div class="collapse navbar-collapse" id="navigation-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li repeat.for="row of router.navigation" if.bind="permission(row.settings.data) & signal:'my-signal'" class="${row.isActive ? 'active' : ''}">    
+            <a data-toggle="collapse" class="navbar-brand" data-target="#navigation-navbar-collapse-1.in" href.bind="row.href">
+                <i class="${row.settings.img}"></i> ${row.title}
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </template>

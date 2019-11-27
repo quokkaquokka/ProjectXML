@@ -5,46 +5,59 @@ export class App {
     config.title = 'Aurelia';
     config.map([
       {
-        route: ['', 'welcome'],
-        name: 'welcome',
-        moduleId: PLATFORM.moduleName('./welcome'),
-        nav: true,
-        title: 'welcome'
-      },
-      {
-        route: ['medias'],
+        route: ['','medias'],
         name: 'medias',
         moduleId: PLATFORM.moduleName('./medias'),
         nav: true,
-        title: 'medias'
-      },
-      {
-        route: ['user'],
-        name: 'user',
-        moduleId: PLATFORM.moduleName('./user'),
-        nav: true,
-        title: 'user'
+        title: 'medias',
+        settings:{
+          img: 'fas fa-icons',
+          data: 'neutre'
+        }
       },
       {
         route: ['myProfil'],
         name: 'myProfil',
         moduleId: PLATFORM.moduleName('./myProfil'),
         nav: true,
-        title: 'myProfil'
+        title: 'myProfil',
+        settings:{
+          img: 'fas fa-user-circle',
+          data: 'true'
+        }
       },
       {
         route: ['type'],
         name: 'type',
         moduleId: PLATFORM.moduleName('./type'),
         nav: true,
-        title: 'type'
+        title: 'type',
+        settings:{
+          img: 'fas fa-cog',
+          data: 'true'
+        }
       },
       {
         route: ['login'],
         name: 'login',
         moduleId: PLATFORM.moduleName('./login'),
         nav: true,
-        title: 'login'
+        title: 'login',
+        settings:{
+          img: 'fas fa-sign-in-alt',
+          data: 'false'
+        }
+      },
+      {
+        route: 'logout',
+        name: 'Log out',
+        moduleId: PLATFORM.moduleName('./logout'),
+        nav: true,
+        title: 'logout',
+        settings:{
+          img: 'fas fa-sign-out-alt',
+          data: 'true'
+        }
       },
       {
         route: ['media'],

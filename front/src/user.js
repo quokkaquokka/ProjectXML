@@ -29,7 +29,8 @@ export class User {
           adress: this.adress,
           postalcode: this.postalcode,
           city: this.city,
-          email: this.email
+          email: this.email,
+          password: this.password
       };
       const response = await axios.post('http://'+ config.host + '/user/add/', data);
       this.deactivate();

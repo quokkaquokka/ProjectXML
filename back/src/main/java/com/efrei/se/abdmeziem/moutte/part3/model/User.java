@@ -18,6 +18,7 @@ public class User {
     private String postalcode;
     private String city;
     private String email;
+    private String password;
 
     public User() {}
 
@@ -72,6 +73,15 @@ public class User {
 
     public User setEmail(String email) {
         this.email = email;
+        return this;
+    }
+    
+    public String getPassword() {
+        return password;
+    }
+
+    public User setPassword(String password) {
+        this.password = password;
         return this;
     }
 

@@ -21,6 +21,7 @@ public class Employees {
     private String telpro;
     private String adress;
     private String postalcode;
+    private String password;
     private String city;
     private String email;
 
@@ -106,6 +107,8 @@ public class Employees {
         this.email = email;
         return this;
     }
+    
+    
 
     public String getObjectID() {
         return objectID;

@@ -2,15 +2,18 @@ import axios from "axios";
 import {PLATFORM} from 'aurelia-pal';
 import {inject}  from "aurelia-framework";
 import {Router}  from "aurelia-router";
+import {BindingSignaler} from 'aurelia-templating-resources';
 import config from './config';
 
 
 
-@inject(Router)
+@inject(Router, BindingSignaler)
 export class Login {
-    constructor() {
+    constructor(router, signaler) {
         this.email = null;
         this.password = null
+        this.signaler = signaler;
+        this.router = router;
     }
 
     async toLogin() {
@@ -21,6 +24,10 @@ export class Login {
         console.log(this.email, this.password)
         const response = await axios.post('http://'+ config.host +'/user/authentification', data);
         console.log(response);
-        // set cookies pour la session
+        var user = response.data.hits[0];
+        localStorage.setItem("email", user.email);
+        localStorage.setItem("objectID", user.objectID);
+        this.signaler.signal('my-signal');
+        this.router.navigate('myProfil')
     }
 }

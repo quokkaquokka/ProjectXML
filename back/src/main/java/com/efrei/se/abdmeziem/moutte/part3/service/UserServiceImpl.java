@@ -91,6 +91,9 @@ public class UserServiceImpl implements UserService{
                 case "email":
                     user.setEmail(val);
                     break;
+                case "password":
+                    user.setPassword(val);
+                    break;
                 case "firstname":
                     user.setFirstname(val);
                     break;
