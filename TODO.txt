@@ -35,7 +35,7 @@ CRUD User (back et front)
 [] recupérer un user
 
 Fixes:
-redirections après clicks sur les différents buttons
+redirections après clicks sur les différents buttons (fait majoritairement dans myProfil, pas fait pour les commentaires dans media)
 
 
 
