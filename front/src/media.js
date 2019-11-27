@@ -104,8 +104,8 @@ export class Media {
         };
 		this.stars = "0";
     const response = await axios.post('http://'+ config.host + '/comment/add', data);
-    this.deactivate();
-    this.activate();
+    this.comments=null;
+    this.getComments(this.media.objectID);
   }
 	
 	async firstStar() {
