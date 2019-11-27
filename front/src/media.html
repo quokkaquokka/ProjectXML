@@ -52,7 +52,9 @@
             </h6>
         </div>
 		<div class="card-body">
-			<p>${comment.text}</p>
+      <div style="float:right" repeat.for="i of 5-comment.grade"><i class="far fa-star"></i></div>
+      <div style="float:right" repeat.for="i of comment.grade / 10 * 10"><i class="fas fa-star"></i></div>
+      <p>${comment.text}</p>
 		</div>
 	</div>
 </template>
