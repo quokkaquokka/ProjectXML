@@ -6,7 +6,6 @@ import com.algolia.search.SearchIndex;
 import com.algolia.search.models.indexing.Query;
 import com.algolia.search.models.indexing.SearchResult;
 import com.efrei.se.abdmeziem.moutte.part3.model.User;
-import static com.efrei.se.abdmeziem.moutte.part3.utils.Constants.ALLOW_SITE;
 import static com.efrei.se.abdmeziem.moutte.part3.utils.Constants.DB_ADMIN;
 import static com.efrei.se.abdmeziem.moutte.part3.utils.Constants.DB_ADMIN_KEY;
 import java.net.URLDecoder;
@@ -14,12 +13,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 /**
@@ -39,16 +39,25 @@ public class UserServiceImpl implements UserService{
             return null;
         Map<String, String> map = new HashMap<>();
         query = query.substring(1, query.length() - 1);
-        String[] params = query.split(",");//maybe replace with "&"
+        String[] params = query.split(",");
         for (String param : params)
         {
-            String name = param.split(":")[0];//maybe replace with "="
+            String name = param.split(":")[0];
             name = name.substring(1, name.length() - 1);
+            System.out.print("name " + name);
             String value = URLDecoder.decode(param.split(":")[1]);
             value = value.substring(1, value.length() - 1);
+            System.out.print("value " + value);
             map.put(name, value);
         }
         return map;
+    }
+    
+    
+    private SearchIndex<User> connectionDB(){
+        SearchClient client = DefaultSearchClient.create(DB_ADMIN, DB_ADMIN_KEY);
+        SearchIndex<User> index = client.initIndex("user", User.class);
+        return index;
     }
     
     /**
@@ -89,7 +98,7 @@ public class UserServiceImpl implements UserService{
                     user.setPostalcode(val);
                     break;
                 default:
-                    System.out.println(key + "Not found in switch case !!!!");
+                    break;
             }
 	}
        
@@ -100,17 +109,9 @@ public class UserServiceImpl implements UserService{
             String randomUUIDString = uuid.toString();
             user.setObjectID(randomUUIDString);
             index.saveObject(user).waitTask();
-            return Response.ok("Ok")
-              .header("Access-Control-Allow-Origin", ALLOW_SITE)
-              .header("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, OPTIONS")
-              .header("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With").build();
+            return Response.ok("Ok").build();
         } catch(Error error) {
-            System.err.println(error);
-            return Response.ok("kO")
-              .header("Access-Control-Allow-Origin", ALLOW_SITE)
-              .header("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, OPTIONS")
-              .header("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With").build();
-            
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build(); 
         }
     }
 
@@ -124,14 +125,13 @@ public class UserServiceImpl implements UserService{
     @Path("getAll")
     @Produces("application/json")
     public Response getUsers(){
-        SearchClient client = DefaultSearchClient.create(DB_ADMIN, DB_ADMIN_KEY);
-        SearchIndex<User> index = client.initIndex("user", User.class);
+        try{
+        SearchIndex<User> index = connectionDB();
         SearchResult<User> allUser = index.search(new Query());
-        return Response.ok(allUser)
-          .header("Access-Control-Allow-Origin", ALLOW_SITE)
-          .header("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, OPTIONS")
-          .header("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With")
-          .build();
+        return Response.ok(allUser).build();
+        } catch(Error error) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build(); 
+        }
     }
     
     
@@ -141,32 +141,18 @@ public class UserServiceImpl implements UserService{
     * @return Response
     */
     @Override
-    @GET
+    @DELETE
     @Path("delete/{objectID}")
     @Consumes("application/json")
     @Produces("text/plain")
     public Response deleteUser(@PathParam("objectID") String id) {
-        id = id.substring(1, id.length() - 1);
-        SearchClient client = DefaultSearchClient.create(DB_ADMIN, DB_ADMIN_KEY);
-        SearchIndex<User> index = client.initIndex("user", User.class);
-        
         try{
+           SearchIndex<User> index = connectionDB();
            index.deleteObject(id);
            return Response
-            .ok("ok")
-           .header("Access-Control-Allow-Origin", ALLOW_SITE)
-           .header("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, OPTIONS")
-           .header("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With")
-           .build();
-        }
-        catch(Exception e) {
-            System.out.print(e);
-            return Response
-            .ok("ko")
-            .header("Access-Control-Allow-Origin", ALLOW_SITE)
-            .header("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, OPTIONS")
-            .header("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With")
-            .build();
+            .ok("ok").build();
+        } catch(Error error) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build(); 
         }
     }
 
@@ -181,15 +167,14 @@ public class UserServiceImpl implements UserService{
     @Consumes("application/json")
     @Produces("application/json")
     public Response getUser(@PathParam("objectID") String id) {
-        SearchClient client = DefaultSearchClient.create(DB_ADMIN, DB_ADMIN_KEY);
-        SearchIndex<User> index = client.initIndex("user", User.class);
+        try{
+        SearchIndex<User> index = connectionDB();
         SearchResult<User> user = index.search(new Query()
          .setFilters("objectID:'" + id + "'"));
-        return Response.ok(user)
-            .header("Access-Control-Allow-Origin", ALLOW_SITE)
-            .header("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, OPTIONS")
-            .header("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With")
-            .build();
+        return Response.ok(user).build();
+        } catch(Error error) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build(); 
+        }
     }
     
     
@@ -200,7 +185,7 @@ public class UserServiceImpl implements UserService{
     * @return Response
     */
     @Override
-    @POST
+    @PUT
     @Path("update")
     @Consumes("application/json")
     @Produces("text/plain")
@@ -234,26 +219,15 @@ public class UserServiceImpl implements UserService{
                     user.setPostalcode(val);
                     break;
                 default:
-                    System.out.println(key + " not found in switch case!!!!");
+                     break;
             }
 	}
-
-        SearchClient client = DefaultSearchClient.create(DB_ADMIN, DB_ADMIN_KEY);
-        SearchIndex<User> index = client.initIndex("user", User.class);
-        try {        
+        try {
+            SearchIndex<User> index = connectionDB();
             index.saveObject(user).waitTask();
-            return Response.ok("Ok")
-              .header("Access-Control-Allow-Origin", ALLOW_SITE)
-              .header("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, OPTIONS")
-              .header("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With")
-              .build();
+            return Response.ok("Ok").build();
         } catch(Error error) {
-            System.err.println(error);
-            return Response.ok("kO")
-              .header("Access-Control-Allow-Origin", ALLOW_SITE)
-              .header("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, OPTIONS")
-              .header("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With")
-              .build(); 
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build(); 
         }
     }
     
@@ -274,17 +248,12 @@ public class UserServiceImpl implements UserService{
         String password = dataMap.get("password");
         System.out.print("email " + email + " password " + password);
         
-        SearchClient client = DefaultSearchClient.create(DB_ADMIN, DB_ADMIN_KEY);
-        SearchIndex<User> index = client.initIndex("user", User.class);
+        SearchIndex<User> index = connectionDB();
         SearchResult<User> user = index.search(new Query()
          .setFilters("email:" + email + " AND password:" + password)
          .setFilters("password:'" + password + "'")
         );
-        return Response.ok(user)
-            .header("Access-Control-Allow-Origin", ALLOW_SITE)
-            .header("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, OPTIONS")
-            .header("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With")
-            .build();
+        return Response.ok(user).build();
     }
 
 }

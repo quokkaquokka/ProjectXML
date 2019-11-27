@@ -58,19 +58,19 @@
                 </button>
             </div>
             <div class="modal-body">
-                Title: <input type="text" name="title" class="form-control" value.bind="name">
-                Author: <input type="text" name="author" class="form-control" value.bind="author">
-                Types: 
+                
+                Title*: <input type="text" name="title" class="form-control" value.bind="name">
+                Author*: <input type="text" name="author" class="form-control" value.bind="author">
+                Types*: 
                 <select class="form-control" value.bind="selectType">
                     <option model.bind="null">Choose...</option>
                     <option repeat.for="type of types"
                             model.bind="type.name"> ${type.name}
                     </option>
                 </select> <br>
-                Icon (font Awesom): <input type="text" name="icon" class="form-control" value.bind="icon">
-                Key words (The different keywords must be separate by ','): <input type="text" name="keyWords" class="form-control" value.bind="keyWords">
-                release date: <input type="text" name="date" class="form-control" value.bind="date">
-
+                Icon (font Awesom)*: <input type="text" name="icon" class="form-control" value.bind="icon">
+                Key words (The different keywords must be separate by ',') *: <input type="text" name="keyWords" class="form-control" value.bind="keyWords">
+                release date*: <input type="text" name="date" class="form-control" value.bind="date">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

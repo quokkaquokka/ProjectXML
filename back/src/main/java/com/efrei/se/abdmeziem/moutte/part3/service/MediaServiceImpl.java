@@ -11,17 +11,17 @@ import com.algolia.search.SearchIndex;
 import com.algolia.search.models.indexing.Query;
 import com.algolia.search.models.indexing.SearchResult;
 import com.efrei.se.abdmeziem.moutte.part3.model.Media;
-import static com.efrei.se.abdmeziem.moutte.part3.utils.Constants.ALLOW_SITE;
 import static com.efrei.se.abdmeziem.moutte.part3.utils.Constants.DB_ADMIN;
 import static com.efrei.se.abdmeziem.moutte.part3.utils.Constants.DB_ADMIN_KEY;
-import java.net.URLDecoder;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -43,6 +43,7 @@ public class MediaServiceImpl implements MediaService {
         String[] params = query.split("\",\"");
         Map<String, String> map = new HashMap<>();
         params[0] = params[0].substring(1, params[0].length());
+        
         for (String param : params)
         {
             String[] keyValue = param.split("\":\"", 2);
@@ -50,6 +51,8 @@ public class MediaServiceImpl implements MediaService {
             System.out.print(name);
             
             String value = keyValue[1];
+            if(value.substring(value.length() -1, value.length()).equals("\""))
+                value = value.substring(0, value.length() - 1);
             System.out.print(value);
             map.put(name, value);
         }
@@ -66,8 +69,15 @@ public class MediaServiceImpl implements MediaService {
     private void splitKW(Media media, String kw) {
         String[] keywords = kw.split(",");
         for (String keyw : keywords) {
-            media.addKeyWord(keyw);
+            if(!keyw.equals(" "))
+                media.addKeyWord(keyw);
         }
+    }
+    
+    private SearchIndex<Media> connectionDB(){
+        SearchClient client = DefaultSearchClient.create(DB_ADMIN, DB_ADMIN_KEY);
+        SearchIndex<Media> index = client.initIndex("media", Media.class);
+    return index;
     }
     
     @Override
@@ -77,7 +87,6 @@ public class MediaServiceImpl implements MediaService {
     @Produces("text/plain")
     public Response addMedia(String data) {
         Map<String, String> dataMap = MediaServiceImpl.getQueryMap(data);
-        
         Media media = new Media();
         for (Map.Entry<String, String> entry : dataMap.entrySet()) {
             String key = entry.getKey();
@@ -85,10 +94,7 @@ public class MediaServiceImpl implements MediaService {
             switch(key) {
                 case "name":
                     media.setName(val);
-                    break;
-                /*case "objectID":
-                    media.setObjectID(val);
-                    break;*/                
+                    break;              
                 case "author":
                     media.setAuthor(val);
                     break;
@@ -108,28 +114,18 @@ public class MediaServiceImpl implements MediaService {
                     splitKW(media, val);
                     break;
                 default:
-                    System.out.println(key + " not found in switch case!!!!");
+                    break;
             }
-	}
-       
-        SearchClient client = DefaultSearchClient.create(DB_ADMIN, DB_ADMIN_KEY);
-        SearchIndex<Media> index = client.initIndex("media", Media.class);
+	} 
         try {        
               UUID uuid = UUID.randomUUID();
               String randomUUIDString = uuid.toString();
               media.setObjectID(randomUUIDString);
+              SearchIndex<Media> index = connectionDB();
               index.saveObject(media).waitTask();
-            return Response.ok("Ok")
-              .header("Access-Control-Allow-Origin", ALLOW_SITE)
-              .header("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, OPTIONS")
-              .header("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With").build();
+            return Response.ok("Ok").build();
         } catch(Error error) {
-            System.err.println(error);
-            return Response.ok("kO")
-              .header("Access-Control-Allow-Origin", ALLOW_SITE)
-              .header("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, OPTIONS")
-              .header("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With").build();
-            
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
     }
 
@@ -143,14 +139,9 @@ public class MediaServiceImpl implements MediaService {
     @Path("getAll")
     @Produces("application/json")
     public Response getMedias(){
-        SearchClient client = DefaultSearchClient.create(DB_ADMIN, DB_ADMIN_KEY);
-        SearchIndex<Media> index = client.initIndex("media", Media.class);
+        SearchIndex<Media> index = connectionDB();
         SearchResult<Media> allMedia = index.search(new Query());
-        return Response.ok(allMedia)
-          .header("Access-Control-Allow-Origin", ALLOW_SITE)
-          .header("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, OPTIONS")
-          .header("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With")
-          .build();
+        return Response.ok(allMedia).build();
     }
     
     
@@ -160,31 +151,18 @@ public class MediaServiceImpl implements MediaService {
     * @return Response
     */
     @Override
-    @GET
+    @DELETE
     @Path("delete/{objectID}")
     @Consumes("application/json")
     @Produces("text/plain")
     public Response deleteMedia(@PathParam("objectID") String id) {
-        SearchClient client = DefaultSearchClient.create(DB_ADMIN, DB_ADMIN_KEY);
-        SearchIndex<Media> index = client.initIndex("media", Media.class);
-        
+        SearchIndex<Media> index = connectionDB();
         try{
-           index.deleteObject(id);
-           return Response
-            .ok("ok")
-           .header("Access-Control-Allow-Origin", ALLOW_SITE)
-           .header("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, OPTIONS")
-           .header("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With")
-           .build();
+           index.deleteObjectAsync(id);
+           return Response.ok("ok").build();
         }
         catch(Exception e) {
-            System.out.print(e);
-            return Response
-            .ok("ko")
-            .header("Access-Control-Allow-Origin", ALLOW_SITE)
-            .header("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, OPTIONS")
-            .header("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With")
-            .build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
     }
 
@@ -199,15 +177,10 @@ public class MediaServiceImpl implements MediaService {
     @Consumes("application/json")
     @Produces("application/json")
     public Response getMedia(@PathParam("objectID") String id) {
-        SearchClient client = DefaultSearchClient.create(DB_ADMIN, DB_ADMIN_KEY);
-        SearchIndex<Media> index = client.initIndex("media", Media.class);
+        SearchIndex<Media> index = connectionDB();
         SearchResult<Media> media = index.search(new Query()
          .setFilters("objectID:'" + id + "'"));
-        return Response.ok(media)
-            .header("Access-Control-Allow-Origin", ALLOW_SITE)
-            .header("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, OPTIONS")
-            .header("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With")
-            .build();
+        return Response.ok(media).build();
     }
     
     
@@ -218,7 +191,7 @@ public class MediaServiceImpl implements MediaService {
     * @return Response
     */
     @Override
-    @POST
+    @PUT
     @Path("update")
     @Consumes("application/json")
     @Produces("text/plain")
@@ -249,29 +222,19 @@ public class MediaServiceImpl implements MediaService {
                     media.setDate(val);
                     break;
                 case "keyWords":
-                    //splitKW(media, val);
+                    splitKW(media, val);
                     break;
                 default:
-                    System.out.println(key + " not found in switch case!!!!");
+                    break;
             }
 	}
 
-        SearchClient client = DefaultSearchClient.create(DB_ADMIN, DB_ADMIN_KEY);
-        SearchIndex<Media> index = client.initIndex("media", Media.class);
+        SearchIndex<Media> index = connectionDB();
         try {        
             index.saveObject(media).waitTask();
-            return Response.ok("Ok")
-              .header("Access-Control-Allow-Origin", ALLOW_SITE)
-              .header("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, OPTIONS")
-              .header("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With")
-              .build();
+            return Response.ok("Ok").build();
         } catch(Error error) {
-            System.err.println(error);
-            return Response.ok("kO")
-              .header("Access-Control-Allow-Origin", ALLOW_SITE)
-              .header("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, OPTIONS")
-              .header("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With")
-              .build(); 
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build(); 
         }
     }
     
@@ -286,15 +249,14 @@ public class MediaServiceImpl implements MediaService {
     @Consumes("application/json")
     @Produces("application/json")
     public Response getSearch(@PathParam("keyword") String search){
-        SearchClient client = DefaultSearchClient.create(DB_ADMIN, DB_ADMIN_KEY);
-        SearchIndex<Media> index = client.initIndex("media", Media.class);
+        try{
+        SearchIndex<Media> index = connectionDB();
         SearchResult<Media> media = index.search(new Query(search)
                 .setAttributesToRetrieve(Arrays.asList("name","author","type","keyWords","icon")));
-        return Response.ok(media)
-            .header("Access-Control-Allow-Origin", ALLOW_SITE)
-            .header("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, OPTIONS")
-            .header("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With")
-            .build();
+        return Response.ok(media).build();
+        } catch(Error error){
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
     }
     
 }

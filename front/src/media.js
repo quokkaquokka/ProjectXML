@@ -71,13 +71,13 @@ export class Media {
             keyWords: keywords
         };
 
-        const response = await axios.post('http://'+ config.host + '/media/update/', data)
+        const response = await axios.put('http://'+ config.host + '/media/update/', data)
         .then(resp => {
             this.media = data
         });
 
         this.isEdit = !this.isEdit;
-        this.deactivate();
+        //?? this.deactivate();
         this.activate();
     }
 	

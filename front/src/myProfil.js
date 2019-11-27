@@ -37,7 +37,6 @@ export class MyProfil {
         this.user = null;
         this.types = null;
 
-
         this.name = null;
         this.author = null;
         this.icon = null;
@@ -93,7 +92,7 @@ export class MyProfil {
         };
 
 
-       const response = await axios.post('http://'+ config.host + '/user/update', data);
+       const response = await axios.put('http://'+ config.host + '/user/update', data);
         document.getElementById("updt").style= "display: visible" ;
         document.getElementById("save").style= "display: none";
         this.isEdit = !this.isEdit;
@@ -103,13 +102,13 @@ export class MyProfil {
 
     async addMedia() {
         var data = {
-            name: this.name,
-            author : this.author,
-            icon: this.icon,
-            keyWords : this.keyWords,
-            date: this.date,
-            type: this.selectType,
-            uid: this.user.objectID
+            name: this.name || " ",
+            author : this.author || " ",
+            icon: this.icon || " ",
+            date: this.date || " ",
+            type: this.selectType || " ",          
+            uid: this.user.objectID,
+            keyWords : this.keyWords || " "
         };
         const response = await axios.post('http://'+ config.host + '/media/add', data);
         this.deactivate();
@@ -117,7 +116,7 @@ export class MyProfil {
     }
 
     async deleteMedia(objectID){
-      const response = await axios.get('http://'+ config.host +'/media/delete/'+ objectID);
+      const response = await axios.delete('http://'+ config.host +'/media/delete/'+ objectID);
       this.delete = response.data;
       console.log(this.delete);
       this.deactivate();
