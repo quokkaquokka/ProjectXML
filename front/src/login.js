@@ -22,7 +22,6 @@ export class Login {
             password : this.password
         }
         const response = await axios.post('http://'+ config.host +'/user/authentification', data);
-        console.log(response);
         var user = response.data.hits[0];
         localStorage.setItem("email", user.email);
         localStorage.setItem("objectID", user.objectID);
