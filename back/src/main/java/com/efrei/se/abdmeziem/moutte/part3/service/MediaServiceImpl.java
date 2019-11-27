@@ -188,7 +188,22 @@ public class MediaServiceImpl implements MediaService {
         return Response.ok(media).build();
     }
     
-    
+    /**
+    * The getMediaByPublisher, connect and return the media in the database 
+    * The function get the media with the publisher, there use a filter.
+    * @return Response
+    */
+    @Override
+    @GET
+    @Path("getAuthor/{publisher}")
+    @Consumes("application/json")
+    @Produces("application/json")
+    public Response getMediaByPublisher(@PathParam("publisher") String publi) {
+        SearchIndex<Media> index = connectionDB();
+        SearchResult<Media> media = index.search(new Query()
+         .setFilters("uid:'" + publi + "'"));
+        return Response.ok(media).build();
+    }
     
     /**
     * The updateMedia, connect and change the data of media in the database 

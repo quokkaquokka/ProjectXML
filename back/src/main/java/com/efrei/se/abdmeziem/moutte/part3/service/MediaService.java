@@ -18,4 +18,5 @@ public interface MediaService {
     public Response getMedias();
     public Response updateMedia(String data);
     public Response getSearch(String data);
+    public Response getMediaByPublisher(String publi);
 }

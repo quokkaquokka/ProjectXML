@@ -24,7 +24,6 @@ export class MyProfil {
     }
 
     activate(params) {
-        this.getMedias();
         this.getUser(params.objectID);
         return this.getTypes()
     }
@@ -54,11 +53,12 @@ export class MyProfil {
         // ATTTENTION LE USER EST CHARGER A LA MAIN
         const response = await axios.get('http://'+ config.host +'/user/get/' + objectID);
         this.user = response.data.hits[0];
+        this.getMedias();
         console.log(this.user);
     }
 
     async getMedias() {
-        const response = await axios.get('http://'+ config.host +'/media/getAll/');
+        const response = await axios.get('http://'+ config.host +'/media/getAuthor/' + this.user.objectID);
         this.medias = response.data.hits;
         console.log(this.medias);
     }
