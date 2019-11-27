@@ -26,7 +26,7 @@
         <p>Keys words:<input type="text" name="keyWords" class="form-control" value.bind="updateKeyWords" disabled.bind="isEdit"></p>
         <br>
         <br>
-        <p> Publicator: ${publicator.name} ${publicator.firstname}</p>
+        <p>Posted by: ${publicator.name} ${publicator.firstname}</p>
     </div>
     <div if.bind="!isEdit">
         <button type="submit" id="save" class="btn btn-primary" click.delegate="updateMedia()" ><i class="fas fa-save"></i></button>
@@ -34,15 +34,19 @@
 
 	<div class="card">
 		<div class="card-body">
-			<input type="text" id="commt" name="commtext" class="form-control" placeholder='Add a comment..' value.bind="nComment">
-			<div class="rating">
-				<input id="star1" type="button" class="btn btn-warning" click.delegate="firstStar()" value="☆"/>
-				<input id="star2" type="button" class="btn btn-warning" click.delegate="secondStar()" value="☆"/>
-				<input id="star3" type="button" class="btn btn-warning" click.delegate="thirdStar()" value="☆"/>
-				<input id="star4" type="button" class="btn btn-warning" click.delegate="fourthStar()" value="☆"/>
-				<input id="star5" type="button" class="btn btn-warning" click.delegate="fifthStar()" value="☆"/>
-			</div>
-			<div style="float: right; margin-top: 10px"><button type="button" class="btn btn-primary" click.delegate="addComment()" ><i class="fas fa-plus"></i></button></div>
+			<input type="text" id="commt" name="commtext" class="form-control mb-4" placeholder='Add a comment...' value.bind="nComment">
+            <div class="form-inline">
+    			<div class="rating mr-auto">
+    				<input id="star1" type="button" class="btn btn-warning" click.delegate="firstStar()" value="☆"/>
+    				<input id="star2" type="button" class="btn btn-warning" click.delegate="secondStar()" value="☆"/>
+    				<input id="star3" type="button" class="btn btn-warning" click.delegate="thirdStar()" value="☆"/>
+    				<input id="star4" type="button" class="btn btn-warning" click.delegate="fourthStar()" value="☆"/>
+    				<input id="star5" type="button" class="btn btn-warning" click.delegate="fifthStar()" value="☆"/>
+    			</div>
+    			<div style="float: right">
+                    <button type="button" class="btn btn-primary" click.delegate="addComment()" ><i class="fas fa-comment"></i> Comment</button>
+                </div>
+            </div>
 		</div>
 	</div>
 	<div class="card" repeat.for="comment of comments">

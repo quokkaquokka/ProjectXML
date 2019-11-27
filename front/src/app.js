@@ -9,7 +9,7 @@ export class App {
         name: 'medias',
         moduleId: PLATFORM.moduleName('./medias'),
         nav: true,
-        title: 'medias',
+        title: 'Medias',
         settings:{
           img: 'fas fa-icons',
           data: 'neutre'
@@ -20,7 +20,7 @@ export class App {
         name: 'user',
         moduleId: PLATFORM.moduleName('./user'),
         nav: true,
-        title: 'user',
+        title: 'Users',
         settings:{
           img: 'fas fa-users',
           data: 'true'
@@ -31,7 +31,7 @@ export class App {
         name: 'myProfil',
         moduleId: PLATFORM.moduleName('./myProfil'),
         nav: true,
-        title: 'myProfil',
+        title: 'My Profil',
         settings:{
           img: 'fas fa-user-circle',
           data: 'true'
@@ -42,7 +42,7 @@ export class App {
         name: 'type',
         moduleId: PLATFORM.moduleName('./type'),
         nav: true,
-        title: 'type',
+        title: 'Types',
         settings:{
           img: 'fas fa-cog',
           data: 'true'
@@ -53,7 +53,7 @@ export class App {
         name: 'login',
         moduleId: PLATFORM.moduleName('./login'),
         nav: true,
-        title: 'login',
+        title: 'Log in',
         settings:{
           img: 'fas fa-sign-in-alt',
           data: 'false'
@@ -64,7 +64,7 @@ export class App {
         name: 'Log out',
         moduleId: PLATFORM.moduleName('./logout'),
         nav: true,
-        title: 'logout',
+        title: 'Log out',
         settings:{
           img: 'fas fa-sign-out-alt',
           data: 'true'
@@ -75,14 +75,14 @@ export class App {
         name: 'media',
         moduleId: PLATFORM.moduleName('./media'),
         nav: false,
-        title: 'media'
+        title: 'Media'
       },
       {
         route: ['userMedias'],
         name: 'userMedias',
         moduleId:PLATFORM.moduleName('./userMedias'),
         nav: false,
-        title: 'userMedias'
+        title: 'User medias'
       }
     ]);
 

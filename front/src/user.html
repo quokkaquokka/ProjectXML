@@ -1,14 +1,19 @@
 <template>
       <form class="form-inline md-form form-sm" action="javascript:">
-        <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search"
+        <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search for an user"
           aria-label="Search" id="searchBar" keyup.delegate="getSearch()">
         <button type="submit" class="btn btn-primary" click.delegate="getSearch()"><i class="fas fa-search" aria-hidden="true"></i></button>
       </form>
       <h2>${heading}</h2>
+
+      <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#modalAdd" style="margin-top: 5px;">
+        <i class="fas fa-plus"></i> Add a new user
+      </button>
+
       <div class="card" repeat.for="user of users">
           <div class="card-header">
               <h1>
-                  <button type="submit" click.delegate="goUserMedias(user.objectID)" style="
+                  <button class="clickableTitle" type="submit" click.delegate="goUserMedias(user.objectID)" style="
                       background-color: Transparent;
                       background-repeat:no-repeat;
                       border: none;
@@ -26,11 +31,6 @@
           </div>
         </a>
       </div>
-     
-
-      <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#modalAdd" style="width: 100px; margin-top: 5px;">
-        <i class="fas fa-plus"></i> New user
-      </button>
 
       <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="modalAddTitle" aria-hidden="true">
         <div class="modal-dialog" role="document">

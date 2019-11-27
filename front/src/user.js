@@ -5,7 +5,7 @@ import {Router}  from "aurelia-router";
 
 @inject(Router)
 export class User {
-  heading = 'Welcome to the user page!';
+  heading = 'List of the users';
     constructor(router) {
         this.users = null;
         this.router=router;

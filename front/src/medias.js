@@ -6,7 +6,7 @@ import config from './config';
 
 @inject(Router)
 export class Medias {
-  heading = 'List of media!';
+  heading = 'List of the medias';
     constructor(router) {
         this.medias = null;
         this.router = router;
