@@ -3,21 +3,21 @@
 
     <div class="card">
         <div class="card-header">
-            Bienvenue ${user.name} ${user.firstname}
+            Welcome ${user.name} ${user.firstname}!
         </div>
         <div class="card-body">
-                Name: <input type="text" name="name" class="form-control" value.bind="user.name" disabled.bind="isEdit">
-                Firstname: <input type="text" name="firstname" class="form-control" value.bind="user.firstname" disabled.bind="isEdit">
-                Email: <input type="text" name="email" class="form-control" value.bind="user.email" disabled.bind="isEdit">
-                Street: <input type="text" name="street" class="form-control" value.bind="user.address" disabled.bind="isEdit">
-                Postal code: <input type="text" name="postalCode" class="form-control" value.bind="user.postalcode" disabled.bind="isEdit">
-                City: <input type="text" name="city" class="form-control" value.bind="user.city" disabled.bind="isEdit">
-                <div  style="float: right; margin-top: 10px" ><button type="submit" id="updt" class="btn btn-warning" click.delegate="changed(type.objectID)" ><i class="fas fa-edit"></i></button></div>
-                <div  style="float: right; margin-top: 10px" ><button type="submit" id="save" class="btn btn-primary" click.delegate="updateUser()"style="display: none"><i class="fas fa-save"></i></button></div>
+                Name: <input type="text" name="name" class="form-control my-2" value.bind="user.name" disabled.bind="isEdit">
+                Firstname: <input type="text" name="firstname" class="form-control my-2" value.bind="user.firstname" disabled.bind="isEdit">
+                Email: <input type="text" name="email" class="form-control my-2" value.bind="user.email" disabled.bind="isEdit">
+                Street: <input type="text" name="street" class="form-control my-2" value.bind="user.address" disabled.bind="isEdit">
+                Postal code: <input type="text" name="postalCode" class="form-control my-2" value.bind="user.postalcode" disabled.bind="isEdit">
+                City: <input type="text" name="city" class="form-control my-2" value.bind="user.city" disabled.bind="isEdit">
+                <div  style="float: right; margin-top: 10px" ><button type="submit" id="updt" class="btn btn-warning" click.delegate="changed(type.objectID)" ><i class="fas fa-edit"></i> Edit my profile</button></div>
+                <div  style="float: right; margin-top: 10px" ><button type="submit" id="save" class="btn btn-primary" click.delegate="updateUser()"style="display: none"><i class="fas fa-save"></i> Save</button></div>
         </div>
     </div>
 
-    <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#modalAdd"><i class="fas fa-plus"></i></button>
+    <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#modalAdd"><i class="fas fa-plus"></i> Add a new media</button>
 
     <div class="card" repeat.for="media of medias">
         
@@ -53,7 +53,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalAddTitle">Add media</h5>
+                <h3 class="modal-title" id="modalAddTitle">Add a new media</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -63,15 +63,21 @@
                 Title*: <input type="text" name="title" class="form-control" value.bind="name">
                 Author*: <input type="text" name="author" class="form-control" value.bind="author">
                 Types*: 
-                <select class="form-control" value.bind="selectType">
+                <select class="form-control" value.bind="selectType" style="min-height: 34px;">
                     <option model.bind="null">Choose...</option>
                     <option repeat.for="type of types"
                             model.bind="type.name"> ${type.name}
                     </option>
                 </select> <br>
-                Icon (font Awesom)*: <input type="text" name="icon" class="form-control" value.bind="icon">
+                Icon: 
+                <select class="form-control" name="icon" value.bind="icon" style="min-height: 34px;">
+                    <option value="">Choose...</option>
+                    <option value="fas fa-book">Book</option>
+                    <option value="fas fa-compact-disc">CD</option>
+                    <option value="fas fa-film">Video</option>
+                </select>
                 Key words (The different keywords must be separate by ',') *: <input type="text" name="keyWords" class="form-control" value.bind="keyWords">
-                release date*: <input type="text" name="date" class="form-control" value.bind="date">
+                Release date*: <input type="text" name="date" class="form-control" value.bind="date">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

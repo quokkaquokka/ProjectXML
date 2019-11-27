@@ -31,7 +31,7 @@ export class App {
         name: 'myProfil',
         moduleId: PLATFORM.moduleName('./myProfil'),
         nav: true,
-        title: 'My Profil',
+        title: 'My Profile',
         settings:{
           img: 'fas fa-user-circle',
           data: 'true'

@@ -7,7 +7,7 @@ import config from './config';
 
 @inject(Router)
 export class MyProfil {
-  heading = 'List of media!';
+  heading = 'My Profile';
     constructor(router) {
         this.router = router;
         this.medias = null;
