@@ -60,7 +60,7 @@ export class App {
         }
       },
       {
-        route: 'logout',
+        route: ['logout'],
         name: 'Log out',
         moduleId: PLATFORM.moduleName('./logout'),
         nav: true,
@@ -83,6 +83,17 @@ export class App {
         moduleId:PLATFORM.moduleName('./userMedias'),
         nav: false,
         title: 'User medias'
+      },
+      {
+        route: ['signup'],
+        name: 'signup',
+        moduleId:PLATFORM.moduleName('./signup'),
+        nav: true,
+        title: 'Sign Up',
+        settings:{
+          img: 'fas fa-user-plus',
+          data: 'false'
+        }
       }
     ]);
 
