@@ -50,11 +50,11 @@ export class MyProfil {
     }
 
     goDetails(objectID) {
-        this.router.navigateToRoute('media', { objectID: objectID, isEdit: true});
+        this.router.navigateToRoute('media', { objectID: objectID, isEdit: false});
     }
 
     goDetailsUpdate(objectID) {
-        this.router.navigateToRoute('media', { objectID: objectID, isEdit: false});
+        this.router.navigateToRoute('media', { objectID: objectID, isEdit: true});
     }
 
     changed(objectID)

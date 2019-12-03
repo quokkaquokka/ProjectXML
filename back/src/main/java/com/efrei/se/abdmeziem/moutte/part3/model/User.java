@@ -44,8 +44,8 @@ public class User {
         return address;
     }
 
-    public User setAddress(String adress) {
-        this.address = adress;
+    public User setAddress(String address) {
+        this.address = address;
         return this;
     }
 
