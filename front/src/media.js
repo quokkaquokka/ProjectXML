@@ -19,7 +19,6 @@ export class Media {
     }
 
     activate(params) {
-        // this.isEdit === true , si le user est le meme que celui qui a poster
         this.isEdit = true;
         (params.isEdit === 'false' ? this.isEdit = true: this.isEdit = false) 
         this.getMedia(params.objectID);
@@ -33,7 +32,6 @@ export class Media {
     async getMedia(objectID) {
         const response = await axios.get('http://'+ config.host +'/media/get/'+ objectID);
         this.media = response.data.hits[0];
-        console.log(response)
         this.updateKeyWords = this.media.keyWords;
         this.updateKeyWords = (this.updateKeyWords || []).join(',');
         const responseUser = await axios.get('http://'+ config.host +'/user/get/'+ this.media.uid);
@@ -48,12 +46,9 @@ export class Media {
     async getComments(mediaID) {
 		const response = await axios.get('http://'+ config.host +'/comment/get/' + mediaID);
         this.comments = response.data.hits;
-        console.log(response);
 	}
 
     async updateMedia() {
-        // var keywords = (this.media.keyWords || []).join(',');
-        console.log(this.selectedType || this.media.type);
         var data = {
             name: this.media.name,
             objectID: this.media.objectID,
@@ -83,7 +78,6 @@ export class Media {
 			alert("rating needed to comment on media");
 			return;
 		}
-		console.log("ADD comment");
         var data = {
 			mediaID: this.media.objectID, 
             text: document.getElementById("commt").value,

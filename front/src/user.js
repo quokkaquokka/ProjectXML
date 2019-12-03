@@ -22,7 +22,6 @@ export class User {
       }
       const response = await axios.get('http://'+ config.host +'/user/search/' + document.getElementById('searchBar').value);
       this.users = response.data.hits;
-      console.log(this.users);
       return true;
   }
 
@@ -32,7 +31,6 @@ export class User {
     }
 
     async addUser() {
-      console.log("ADD " + this.name);
       var data = {
           name: this.name,
           firstname: this.firstname,

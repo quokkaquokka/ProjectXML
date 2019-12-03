@@ -23,14 +23,12 @@ export class Medias {
         }
         const response = await axios.get('http://'+ config.host +'/media/search/' + document.getElementById('searchBar').value);
         this.medias = response.data.hits;
-        console.log(this.medias);
         return true;
     }
 
     async getMedias(){
         const response = await axios.get('http://'+ config.host +'/media/getAll/');
         this.medias = response.data.hits;
-        console.log(this.medias);
     }
 
     goDetails(objectID) {
