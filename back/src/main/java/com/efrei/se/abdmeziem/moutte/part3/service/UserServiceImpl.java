@@ -82,7 +82,7 @@ public class UserServiceImpl implements UserService{
                 case "name":
                     user.setName(val);
                     break;                
-                case "adress":
+                case "address":
                     user.setAddress(val);
                     break;
                 case "city":
