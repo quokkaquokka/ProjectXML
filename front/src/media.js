@@ -55,6 +55,7 @@ export class Media {
             author: this.media.author,
             date: this.media.date,
             uid: this.media.uid,
+            icon: this.media.icon,
             type: this.selectedType || this.media.type,
             keyWords: this.updateKeyWords
         };
@@ -67,7 +68,8 @@ export class Media {
         data.isEdit = 'false';
 
         this.isEdit = !this.isEdit;
-        this.getMedia(data.objectID);
+        this.getMedia(this.media.objectID);
+
     }
 	
 

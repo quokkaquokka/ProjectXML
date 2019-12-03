@@ -9,6 +9,10 @@ export class Signup {
     constructor(router) {
         this.router=router;
         this.name = "";
+		this.firstname = '';
+		this.address = '';
+		this.postalcode = '';
+		this.city = '';
         this.password = "";
         this.email = "";
     }
@@ -18,7 +22,7 @@ export class Signup {
 			var data = {
 				name: this.name,
 				firstname: this.firstname,
-				adress: this.adress,
+				address: this.address,
 				postalcode: this.postalcode,
 				city: this.city,
 				email: this.email,
