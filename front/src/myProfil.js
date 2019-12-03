@@ -33,13 +33,13 @@ export class MyProfil {
     }
 
     async getTypes() {
-        const response = await axios.get('http://'+ config.host +'/type/getAll/');
+        const response = await axios.get('http://'+ config.host +'/type/');
         this.types = response.data.hits;
     }
 
     async getUser() {
         var objectID = localStorage.getItem("objectID");
-        const response = await axios.get('http://'+ config.host +'/user/get/' + objectID);
+        const response = await axios.get('http://'+ config.host +'/user/' + objectID);
         this.user = response.data.hits[0];
         this.getMedias();
     }
@@ -76,7 +76,7 @@ export class MyProfil {
         };
 
 
-       const response = await axios.put('http://'+ config.host + '/user/update', data);
+       const response = await axios.put('http://'+ config.host + '/user/', data);
         document.getElementById("updt").style= "display: visible" ;
         document.getElementById("save").style= "display: none";
         this.isEdit = !this.isEdit;
@@ -93,12 +93,12 @@ export class MyProfil {
             uid: this.user.objectID,
             keyWords : this.keyWords || " "
         };
-        const response = await axios.post('http://'+ config.host + '/media/add', data);
+        const response = await axios.post('http://'+ config.host + '/media/', data);
         this.getMedias();
     }
 
     async deleteMedia(objectID){
-      const response = await axios.delete('http://'+ config.host +'/media/delete/'+ objectID);
+      const response = await axios.delete('http://'+ config.host +'/media/'+ objectID);
       location.reload(); 
       this.getMedias();
     }

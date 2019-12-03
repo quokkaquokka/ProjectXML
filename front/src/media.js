@@ -20,7 +20,7 @@ export class Media {
 
     activate(params) {
         this.isEdit = true;
-        (params.isEdit === 'false' ? this.isEdit = true: this.isEdit = false) 
+        (params.isEdit === 'false' ? this.isEdit = false: this.isEdit = true) 
         this.getMedia(params.objectID);
         this.comments = null;
         
@@ -30,21 +30,21 @@ export class Media {
     }
 
     async getMedia(objectID) {
-        const response = await axios.get('http://'+ config.host +'/media/get/'+ objectID);
+        const response = await axios.get('http://'+ config.host +'/media/'+ objectID);
         this.media = response.data.hits[0];
         this.updateKeyWords = this.media.keyWords;
         this.updateKeyWords = (this.updateKeyWords || []).join(',');
-        const responseUser = await axios.get('http://'+ config.host +'/user/get/'+ this.media.uid);
+        const responseUser = await axios.get('http://'+ config.host +'/user/'+ this.media.uid);
         this.publicator = responseUser.data.hits[0];
     }
 
     async getTypes() {
-        const response = await axios.get('http://'+ config.host +'/type/getAll/');
+        const response = await axios.get('http://'+ config.host +'/type/');
         this.types = response.data.hits;
     }
 
     async getComments(mediaID) {
-		const response = await axios.get('http://'+ config.host +'/comment/get/' + mediaID);
+		const response = await axios.get('http://'+ config.host +'/comment/' + mediaID);
         this.comments = response.data.hits;
 	}
 
@@ -59,7 +59,7 @@ export class Media {
             keyWords: this.updateKeyWords
         };
 
-        const response = await axios.put('http://'+ config.host + '/media/update/', data)
+        const response = await axios.put('http://'+ config.host + '/media/', data)
         .then(resp => {
             this.media = data
         });
@@ -67,7 +67,7 @@ export class Media {
         data.isEdit = 'false';
 
         this.isEdit = !this.isEdit;
-        this.getMedia();
+        this.getMedia(data.objectID);
     }
 	
 
@@ -86,7 +86,7 @@ export class Media {
 			publisherName: localStorage.getItem("name")
         };
 		this.stars = "0";
-		const response = await axios.post('http://'+ config.host + '/comment/add', data);
+		const response = await axios.post('http://'+ config.host + '/comment/', data);
 		this.comments = null;
 		this.getComments(this.media.objectID);
 	}

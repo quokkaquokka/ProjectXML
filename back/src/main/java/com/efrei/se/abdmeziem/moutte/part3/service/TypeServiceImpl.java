@@ -66,7 +66,6 @@ public class TypeServiceImpl implements TypeService {
     
     @Override
     @POST
-    @Path("add")
     @Consumes("application/json")
     @Produces("text/plain")
     public Response addType(String data) {
@@ -98,7 +97,6 @@ public class TypeServiceImpl implements TypeService {
     */
     @Override
     @GET
-    @Path("getAll")
     @Produces("application/json")
     public Response getTypes(){
         try {
@@ -118,8 +116,7 @@ public class TypeServiceImpl implements TypeService {
     */
     @Override
     @DELETE
-    @Path("delete/{objectID}")
-    @Consumes("application/json")
+    @Path("{objectID}")
     @Produces("text/plain")
     public Response deleteType(@PathParam("objectID") String id) {
         SearchIndex<Type> index = connectionDB();
@@ -142,7 +139,7 @@ public class TypeServiceImpl implements TypeService {
     */
     @Override
     @GET
-    @Path("get/{objectID}")
+    @Path("{objectID}")
     @Consumes("application/json")
     @Produces("application/json")
     public Response getType(@PathParam("objectID") String id) {
@@ -161,7 +158,6 @@ public class TypeServiceImpl implements TypeService {
     */
     @Override
     @PUT
-    @Path("update")
     @Consumes("application/json")
     @Produces("text/plain")
     public Response updateType(String data) {

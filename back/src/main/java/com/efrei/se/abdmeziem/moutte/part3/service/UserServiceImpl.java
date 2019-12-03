@@ -70,7 +70,6 @@ public class UserServiceImpl implements UserService{
     
     @Override
     @POST
-    @Path("add")
     @Consumes("application/json")
     @Produces("text/plain")
     public Response addUser(String data) {
@@ -126,7 +125,6 @@ public class UserServiceImpl implements UserService{
     */
     @Override
     @GET
-    @Path("getAll")
     @Produces("application/json")
     public Response getUsers(){
         try{
@@ -146,8 +144,7 @@ public class UserServiceImpl implements UserService{
     */
     @Override
     @DELETE
-    @Path("delete/{objectID}")
-    @Consumes("application/json")
+    @Path("{objectID}")
     @Produces("text/plain")
     public Response deleteUser(@PathParam("objectID") String id) {
         try{
@@ -167,8 +164,7 @@ public class UserServiceImpl implements UserService{
     */
     @Override
     @GET
-    @Path("get/{objectID}")
-    @Consumes("application/json")
+    @Path("{objectID}")
     @Produces("application/json")
     public Response getUser(@PathParam("objectID") String id) {
         try{
@@ -190,7 +186,6 @@ public class UserServiceImpl implements UserService{
     */
     @Override
     @PUT
-    @Path("update")
     @Consumes("application/json")
     @Produces("text/plain")
     public Response updateUser(String data) {

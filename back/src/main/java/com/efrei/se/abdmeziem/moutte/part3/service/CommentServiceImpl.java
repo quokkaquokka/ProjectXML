@@ -59,7 +59,6 @@ public class CommentServiceImpl implements CommentService {
     
     @Override
     @POST
-    @Path("add")
     @Consumes("application/json")
     @Produces("text/plain")
     public Response addComment(String data) {
@@ -102,8 +101,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     @DELETE
-    @Path("delete/{objectID}")
-    @Consumes("application/json")
+    @Path("{objectID}")
     @Produces("text/plain")
     public Response deleteComment(@PathParam("objectID") String id) {      
         try{
@@ -118,8 +116,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     @GET
-    @Path("get/{objectID}")
-    @Consumes("application/json")
+    @Path("{objectID}")
     @Produces("application/json")
     public Response getComment(@PathParam("objectID") String id) {
         try{
@@ -134,7 +131,6 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     @GET
-    @Path("getAll")
     @Produces("application/json")
     public Response getComments() {
         try{
@@ -148,7 +144,6 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     @PUT
-    @Path("update")
     @Consumes("application/json")
     @Produces("text/plain")
     public Response updateComment(String data) {

@@ -60,12 +60,7 @@ public class MediaServiceImpl implements MediaService {
         return map;
     }   
     
-    /**
-    * The addMedia, connect and add the data in the database 
-    * The function retrieves the JSON, passes it in a map to process the data and adds it to the Media class
-    * use UUID to generate an ID for the media.
-    * @return Response
-    */
+    
     
     private void splitKW(Media media, String kw) {
         String[] keywords = kw.split(",");
@@ -81,9 +76,15 @@ public class MediaServiceImpl implements MediaService {
     return index;
     }
     
+    
+    /**
+    * The addMedia, connect and add the data in the database 
+    * The function retrieves the JSON, passes it in a map to process the data and adds it to the Media class
+    * use UUID to generate an ID for the media.
+    * @return Response
+    */
     @Override
     @POST
-    @Path("add")
     @Consumes("application/json")
     @Produces("text/plain")
     public Response addMedia(String data) {
@@ -137,7 +138,6 @@ public class MediaServiceImpl implements MediaService {
     */
     @Override
     @GET
-    @Path("getAll")
     @Produces("application/json")
     public Response getMedias(){
         SearchIndex<Media> index = connectionDB();
@@ -153,7 +153,7 @@ public class MediaServiceImpl implements MediaService {
     */
     @Override
     @DELETE
-    @Path("delete/{objectID}")
+    @Path("{objectID}")
     @Consumes("application/json")
     @Produces("text/plain")
     public Response deleteMedia(@PathParam("objectID") String id) {
@@ -178,7 +178,7 @@ public class MediaServiceImpl implements MediaService {
     */
     @Override
     @GET
-    @Path("get/{objectID}")
+    @Path("{objectID}")
     @Consumes("application/json")
     @Produces("application/json")
     public Response getMedia(@PathParam("objectID") String id) {
@@ -212,7 +212,6 @@ public class MediaServiceImpl implements MediaService {
     */
     @Override
     @PUT
-    @Path("update")
     @Consumes("application/json")
     @Produces("text/plain")
     public Response updateMedia(String data) {

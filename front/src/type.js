@@ -16,7 +16,7 @@ export class Type {
 
 
     async getTypes() {
-        const response = await axios.get('http://'+ config.host +'/type/getAll/');
+        const response = await axios.get('http://'+ config.host +'/type/');
         this.types = response.data.hits;
     }
 
@@ -24,7 +24,7 @@ export class Type {
         var data = {
             name: this.name
         };
-        const response = await axios.post('http://'+ config.host + '/type/add/', data);
+        const response = await axios.post('http://'+ config.host + '/type/', data);
         this.getTypes();
     }
 
@@ -33,7 +33,7 @@ export class Type {
             name: name,
             objectID: objectID
         };
-        const response = await axios.put('http://'+ config.host + '/type/update/', data);
+        const response = await axios.put('http://'+ config.host + '/type/', data);
 
         document.getElementById(objectID.toString(10)).disabled = true;
         document.getElementById("updt" + objectID.toString(10)).style= "display: visible" ;
@@ -42,7 +42,7 @@ export class Type {
     }
 
     async removeType(objectID){
-        const response = await axios.delete('http://'+ config.host +'/type/delete/' + objectID);
+        const response = await axios.delete('http://'+ config.host +'/type/' + objectID);
         this.getTypes();
     }
 

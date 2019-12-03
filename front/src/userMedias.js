@@ -29,13 +29,13 @@ export class MyProfil {
     }
 
     async getTypes() {
-        const response = await axios.get('http://'+ config.host +'/type/getAll/');
+        const response = await axios.get('http://'+ config.host +'/All/');
         this.types = response.data.hits;
 
     }
 
     async getUser(objectID) {
-        const response = await axios.get('http://'+ config.host +'/user/get/' + objectID);
+        const response = await axios.get('http://'+ config.host +'/user/' + objectID);
         this.user = response.data.hits[0];
         this.getMedias();
     }

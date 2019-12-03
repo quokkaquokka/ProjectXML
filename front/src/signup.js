@@ -15,7 +15,6 @@ export class Signup {
 
     async addUser() {
     	if (this.name !== "" && this.password !== "" && this.email !== "") {
-			console.log("ADD " + this.name);
 			var data = {
 				name: this.name,
 				firstname: this.firstname,
@@ -25,7 +24,7 @@ export class Signup {
 				email: this.email,
 				password: this.password
 			};
-			const response = await axios.post('http://'+ config.host + '/user/add/', data);
+			const response = await axios.post('http://'+ config.host + '/user/', data);
 			this.router.navigate('login');
 		}
   }

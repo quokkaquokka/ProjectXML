@@ -26,23 +26,9 @@ export class User {
   }
 
     async getUsers() {
-        const response = await axios.get('http://'+ config.host +'/user/getAll/');
+        const response = await axios.get('http://'+ config.host +'/user/');
         this.users = response.data.hits;
     }
-
-    async addUser() {
-      var data = {
-          name: this.name,
-          firstname: this.firstname,
-          adress: this.adress,
-          postalcode: this.postalcode,
-          city: this.city,
-          email: this.email,
-          password: this.password
-      };
-      const response = await axios.post('http://'+ config.host + '/user/add/', data);
-      this.getUsers();
-  }
 
     goUserMedias(objectID){
       this.router.navigateToRoute('userMedias', { objectID: objectID});

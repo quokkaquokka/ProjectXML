@@ -27,11 +27,11 @@ export class Medias {
     }
 
     async getMedias(){
-        const response = await axios.get('http://'+ config.host +'/media/getAll/');
+        const response = await axios.get('http://'+ config.host +'/media/');
         this.medias = response.data.hits;
     }
 
     goDetails(objectID) {
-        this.router.navigateToRoute('media', { objectID: objectID, isEdit: false});
+        this.router.navigateToRoute('media', { objectID: objectID, isEdit: true});
     }
 }
