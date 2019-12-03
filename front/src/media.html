@@ -1,7 +1,7 @@
 <template>
     <div class="card">
             <div class="card-header">
-                Title: <input type="text" name="name" class="form-control" value.bind="media.name" disabled.bind="isEdit">
+                <h1 class="inline"><i class="${media.icon}"></i></h1><input type="text" name="name" class="form-control" value.bind="media.name" disabled.bind="isEdit">
             </div>
         <div class="card-body">
             <p>Artist: <input type="text" name="firstname" class="form-control" value.bind="media.author" disabled.bind="isEdit"></p>
@@ -17,7 +17,6 @@
                     <option value="fas fa-film">Video</option>
                 </select>
             </p>
-            <h1><i class="${media.icon}"></i></h1>
             <p if.bind="isEdit">Type : ${media.type}</p>
             <p if.bind="!isEdit">Type
                 <select class="form-control" value.bind="selectedType" style="min-height: 34px;">
