@@ -225,6 +225,9 @@ public class MediaServiceImpl implements MediaService {
                 case "name":
                     media.setName(val);
                     break;
+                case "icon":
+                    media.setIcon(val);
+                    break;
                 case "objectID":
                     media.setObjectID(val);
                     break;                
