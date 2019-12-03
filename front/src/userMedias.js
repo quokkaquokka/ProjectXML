@@ -29,7 +29,7 @@ export class MyProfil {
     }
 
     async getTypes() {
-        const response = await axios.get('http://'+ config.host +'/All/');
+        const response = await axios.get('http://'+ config.host +'/type/');
         this.types = response.data.hits;
 
     }

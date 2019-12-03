@@ -6,15 +6,14 @@
             Medias of ${user.name} ${user.firstname}
         </div>
         <div class="card-body">
-                Name: <input type="text" name="name" class="form-control" value.bind="user.name">
-                Firstname: <input type="text" name="firstname" class="form-control" value.bind="user.firstname">
-                Email: <input type="text" name="email" class="form-control" value.bind="user.email">
-                Street: <input type="text" name="street" class="form-control" value.bind="user.address">
-                Postal code: <input type="text" name="postalCode" class="form-control" value.bind="user.postalcode">
-                City: <input type="text" name="city" class="form-control" value.bind="user.city">
+            <div class="inline">Name: </div><input type="text" name="name" class="form-control" value.bind="user.name" disabled><br>
+            <div class="inline"> Firstname: </div><input type="text" name="firstname" class="form-control" value.bind="user.firstname" disabled><br>
+            <div class="inline">Email: </div><input type="text" name="email" class="form-control" value.bind="user.email" disabled><br>
+            <div class="inline">Street: </div><input type="text" name="street" class="form-control" value.bind="user.address" disabled><br>
+            <div class="inline">Postal code: </div><input type="text" name="postalCode" class="form-control" value.bind="user.postalcode" disabled><br>
+            <div class="inline">City: </div><input type="text" name="city" class="form-control" value.bind="user.city" disabled><br>
         </div>
     </div>
-
 
     <div class="card" repeat.for="media of medias">
         

@@ -31,6 +31,7 @@ export class User {
     }
 
     goUserMedias(objectID){
-      this.router.navigateToRoute('userMedias', { objectID: objectID});
+      
+      this.router.navigateToRoute('userMedias', { objectID: objectID, isEdit: false});
     }
 }
