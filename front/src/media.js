@@ -67,7 +67,7 @@ export class Media {
         data.isEdit = 'false';
 
         this.isEdit = !this.isEdit;
-        this.getMedia();
+        this.getMedia(objectID);
     }
 	
 
