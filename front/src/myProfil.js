@@ -35,22 +35,18 @@ export class MyProfil {
     async getTypes() {
         const response = await axios.get('http://'+ config.host +'/type/getAll/');
         this.types = response.data.hits;
-        console.log(this.types);
-
     }
 
     async getUser() {
         var objectID = localStorage.getItem("objectID");
         const response = await axios.get('http://'+ config.host +'/user/get/' + objectID);
         this.user = response.data.hits[0];
-        console.log(this.user);
         this.getMedias();
     }
 
     async getMedias() {
         const response = await axios.get('http://'+ config.host +'/media/getAuthor/' + this.user.objectID);
         this.medias = response.data.hits;
-        console.log(this.medias);
     }
 
     goDetails(objectID) {
@@ -88,7 +84,6 @@ export class MyProfil {
     }
 
     async addMedia() {
-        console.log("ADDDD")
         var data = {
             name: this.name || " ",
             author : this.author || " ",
@@ -104,9 +99,6 @@ export class MyProfil {
 
     async deleteMedia(objectID){
       const response = await axios.delete('http://'+ config.host +'/media/delete/'+ objectID);
-      // this.delete = response.data;
-      // console.log(this.delete);
-      console.log("rrr", response);
       location.reload(); 
       this.getMedias();
     }
