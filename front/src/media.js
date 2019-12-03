@@ -83,13 +83,13 @@ export class Media {
             text: document.getElementById("commt").value,
             grade: this.stars,
             publisherID: localStorage.getItem("objectID"),
-			publisherName: localStorage.setItem("name")
+			publisherName: localStorage.getItem("name")
         };
 		this.stars = "0";
-    const response = await axios.post('http://'+ config.host + '/comment/add', data);
-    this.comments=null;
-    this.getComments(this.media.objectID);
-  }
+		const response = await axios.post('http://'+ config.host + '/comment/add', data);
+		this.comments = null;
+		this.getComments(this.media.objectID);
+	}
 	
 	async firstStar() {
 		this.stars = "1";

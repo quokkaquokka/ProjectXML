@@ -11,9 +11,9 @@
   </div>
       <h2>${heading}</h2>
 
-      <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#modalAdd" style="margin-top: 5px;">
+      <!--button type="submit" class="btn btn-success" data-toggle="modal" data-target="#modalAdd" style="margin-top: 5px;">
         <i class="fas fa-plus"></i> Add a new user
-      </button>
+      </button-->
 
       <div class="card" repeat.for="user of users">
           <div class="card-header">
@@ -37,7 +37,7 @@
         </a>
       </div>
 
-      <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="modalAddTitle" aria-hidden="true">
+      <!--div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="modalAddTitle" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -53,14 +53,14 @@
                 Postal code: <input type="text" name="postalcode" class="form-control" value.bind="postalcode"><br>
                 City: <input type="text" name="city" class="form-control" value.bind="city"><br>
                 E-mail: <input type="text" name="email" class="form-control" value.bind="email"><br>
-                Password: <input type="text" name="email" class="form-control" value.bind="password"><br>
+                Password: <input type="password" name="email" class="form-control" value.bind="password"><br>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" click.delegate="addUser()" class="btn btn-primary">Save</button>
+              <button type="button" click.delegate="addUser()" class="btn btn-primary" data-dismiss="modal">Save</button>
             </div>
           </div>
         </div>
-      </div>
+      </div-->
 
 </template>
